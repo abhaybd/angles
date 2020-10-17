@@ -1,40 +1,44 @@
-//TEST CODE FOR IAN TO REFERENCE
-let changeColor = document.getElementById('changeColor');
-
-chrome.storage.sync.get('color', function(data) {
-  changeColor.style.backgroundColor = data.color;
-  changeColor.setAttribute('value', data.color);
-});
-
-changeColor.onclick = function(element) {
-    let color = element.target.value;
-    chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-      chrome.tabs.executeScript(
-          tabs[0].id,
-          {code: 'document.body.style.backgroundColor = "' + color + '";'});
+function execIfNews(url, callback) {
+    chrome.runtime.sendMessage({reqType: "isNews", url: url}, function(response) {
+        if (response.isNews === true) {
+            callback();
+        }
     });
-  };
-
-
-function isNews(origin) {
-    // TODO: determine if origin is a news site
-    return true;
 }
 
-function enableExtension() {
+function expandFloater(floater) {
+    const keywords = getKeywords().slice(0, 5);
+    const news = relevantNews(keywords);
+    // TODO: display this news
+}
 
+function relevantNews(keywords) {
+    // TODO: call news api wrapper
+}
+
+function getKeywords() {
+    let text = $("p").text().toString();
+    text = text.replaceAll(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)?/gi, "");
+    text = text.replaceAll(/[\[\]+\-@#^*_=]/gi, "");
+    text = text.replaceAll(/([!.;:,?)])(\w)/gi, "$1 $2");
+    console.log(text);
+    // pass text to nlp for keyword extraction
+    return []; // TODO: this should be result from call
 }
 
 function enableFloater() {
     const floater = $("<div id='angles-floater' class='collapsed'><div>Angles</div></div>");
+    floater.on("click", function() {
+        expandFloater(floater);
+    });
     $("body").append(floater);
     console.log(floater);
 }
 
 $(function() {
     console.log("Page loaded!");
-    if (isNews(window.origin)) {
-        enableExtension();
+
+    execIfNews(window.location.href, function() {
         enableFloater();
-    }
+    });
 });

@@ -1,7 +1,11 @@
 chrome.runtime.onInstalled.addListener(function() {
-    chrome.storage.sync.set({color: '#3aa757'}, function(){
-        console.log("The color is green.");
-    });
+const url = "http://newsapi.org/v2/everything?bitcoin&domains=cnn.com&sortBy=relevancy&apiKey=4f010001c9f14c2eb9288c298c164b07";
+$.get(url, function(data){
+    console.log("jquery");
+    console.log(data);
+});
+
+
     chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
         chrome.declarativeContent.onPageChanged.addRules([{
           conditions: [new chrome.declarativeContent.PageStateMatcher({
@@ -13,3 +17,22 @@ chrome.runtime.onInstalled.addListener(function() {
       });
 });
 
+
+function isNews(url) {
+    // TODO: query allsides data
+    return true;
+}
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log("From tab: " + sender.tab.url);
+        switch (request.reqType) {
+            case "isNews":
+                sendResponse({isNews: isNews(request.url)});
+                break;
+
+            case "news":
+                break;
+        }
+    }
+);
