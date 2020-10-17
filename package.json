@@ -1,0 +1,22 @@
+{
+  "name": "angles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "allsides.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abhaybd/angles.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abhaybd/angles/issues"
+  },
+  "homepage": "https://github.com/abhaybd/angles#readme",
+  "dependencies": {
+    "jquery-csv": "^1.0.11"
+  }
+}
