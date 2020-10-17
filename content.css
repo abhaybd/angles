@@ -20,6 +20,13 @@
   text-align: center;
 }
 
+#angles-floater.expanded {
+    background-color: tan;
+    color: black;
+    width: auto;
+    height: auto;
+}
+
 #angles-floater {
   position: fixed;
   top: 100px;
