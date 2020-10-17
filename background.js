@@ -6,6 +6,13 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log("queryResults " + queryResults);
 });
 
+function getRelevantNews(keywords, publisher) {
+    const bias = getBias(publisher);
+    const publishers = oppositeBias(bias);
+    // TODO: invoke news api with publishers and keywords
+    return null;
+}
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log("From tab: " + sender.tab.url);
