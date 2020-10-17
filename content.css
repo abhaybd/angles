@@ -4,8 +4,16 @@
     color: white;
     background-color: red;
 }
+
 #angles-floater.collapsed > * {
     transform: rotate(-90deg);
+}
+
+#angles-floater.expanded {
+    background-color: tan;
+    color: black;
+    width: auto;
+    height: auto;
 }
 
 #angles-floater {

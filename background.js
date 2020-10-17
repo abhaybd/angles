@@ -1,6 +1,6 @@
 chrome.runtime.onInstalled.addListener(function() {
     console.log("Installed!");
-})
+});
 
 function isNews(url) {
     // TODO: query allsides data

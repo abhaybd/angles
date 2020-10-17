@@ -8,12 +8,16 @@ function execIfNews(url, callback) {
 
 function expandFloater(floater) {
     const keywords = getKeywords().slice(0, 5);
-    const news = relevantNews(keywords);
+    const news = relevantNews(keywords); // assume format {url: "", title: "", publisher: ""}
+    floater.removeClass("collapsed").addClass("expanded");
+    floater.empty();
+    floater.append(`<div id='angles-curr-article'><div class='title'>${document.title}</div></div>`);
     // TODO: display this news
 }
 
 function relevantNews(keywords) {
     // TODO: call news api wrapper
+    return null;
 }
 
 function getKeywords() {
