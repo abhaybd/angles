@@ -131,4 +131,6 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# Mac stuff/
+*.DS_STORE
 # End of https://www.toptal.com/developers/gitignore/api/windows,webstorm

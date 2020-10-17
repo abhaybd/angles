@@ -2,6 +2,7 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log("Installed!");
 });
 
+
 function getRelevantNews(keywords, publisher) {
     const bias = getBias(publisher);
     const publishers = oppositeBias(bias);
