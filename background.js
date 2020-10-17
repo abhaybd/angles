@@ -2,9 +2,11 @@ chrome.runtime.onInstalled.addListener(function() {
     console.log("Installed!");
 });
 
-function isNews(url) {
-    // TODO: query allsides data
-    return true;
+function getRelevantNews(keywords, publisher) {
+    const bias = getBias(publisher);
+    const publishers = oppositeBias(bias);
+    // TODO: invoke news api with publishers and keywords
+    return null;
 }
 
 chrome.runtime.onMessage.addListener(
@@ -12,10 +14,12 @@ chrome.runtime.onMessage.addListener(
         console.log("From tab: " + sender.tab.url);
         switch (request.reqType) {
             case "isNews":
-                sendResponse({isNews: isNews(request.url)});
+                sendResponse({publisher: getPublisher(request.url)});
                 break;
 
             case "news":
+                const news = getRelevantNews(request.keywords, request.publisher);
+                sendResponse({articles: news});
                 break;
         }
     }
