@@ -1,4 +1,5 @@
 chrome.runtime.onInstalled.addListener(function() {
+<<<<<<< HEAD
     console.log('check');
     var keywords = ["president", "election"];
     var domains = "cnn.com,foxnews.com";
@@ -40,3 +41,30 @@ async function queryNews(keywords, domains) {
     var response = await fetch(request);
     return response.json();
 }
+=======
+    console.log("Installed!");
+});
+
+function getRelevantNews(keywords, publisher) {
+    const bias = getBias(publisher);
+    const publishers = oppositeBias(bias);
+    // TODO: invoke news api with publishers and keywords
+    return null;
+}
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log("From tab: " + sender.tab.url);
+        switch (request.reqType) {
+            case "isNews":
+                sendResponse({publisher: getPublisher(request.url)});
+                break;
+
+            case "news":
+                const news = getRelevantNews(request.keywords, request.publisher);
+                sendResponse({articles: news});
+                break;
+        }
+    }
+);
+>>>>>>> d91106a05c8f35690948e1782d7e516087bc3518
