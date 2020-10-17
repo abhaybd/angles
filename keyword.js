@@ -15,7 +15,7 @@ async function getEntities(articleText, n=5) {
   
     // Detects the sentiment of the text
     const [result] = await client.analyzeEntities({document});
-    const entities = result.entities;
+    var entities = result.entities;
     
     // Print values of each entity (for testing)
     /*
@@ -29,7 +29,9 @@ async function getEntities(articleText, n=5) {
     */
 
     // Sort entities by salience
+    entities.sort((a, b) => b.salience - a.salience);
 
     // Return top n entities (5 default)
-    return;
+    // If n > entities.length, return entities
+    return entities.slice(0, n);
 }
