@@ -1,20 +1,5 @@
 chrome.runtime.onInstalled.addListener(function() {
-const url = "http://newsapi.org/v2/everything?bitcoin&domains=cnn.com&sortBy=relevancy&apiKey=4f010001c9f14c2eb9288c298c164b07";
-$.get(url, function(data){
-    console.log("jquery");
-    console.log(data);
-});
-
-
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-        chrome.declarativeContent.onPageChanged.addRules([{
-          conditions: [new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: {schemes:['https']},
-          })
-          ],
-              actions: [new chrome.declarativeContent.ShowPageAction()]
-        }]);
-      });
+    console.log("Installed!");
 });
 
 
