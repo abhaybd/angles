@@ -13,7 +13,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log("From tab: " + sender.tab.url);
         switch (request.reqType) {
-            case "isNews":
+            case "publisher":
                 sendResponse({publisher: getPublisher(request.url)});
                 break;
 

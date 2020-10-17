@@ -34,7 +34,7 @@ function enableFloater(publisher) {
 }
 
 function execIfNews(url, callback) {
-    chrome.runtime.sendMessage({reqType: "isNews", url: url}, function(response) {
+    chrome.runtime.sendMessage({reqType: "publisher", url: url}, function(response) {
         if (response.publisher) {
             callback(response.publisher);
         }
