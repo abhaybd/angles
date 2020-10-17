@@ -16,13 +16,13 @@ function queryNews(keywords, domains, from, sortBy) {
         keywordsQuery += " OR " + keywords[i];
     }
     
-    var url = 'http://newsapi.org/v2/everything?' +
-              keywordsQuery + '&' +
-              'domains=' + domains + '&' +
-              'from=' + from + '&' +
-              'language=' + language + '&' +
-              'sortBy=' + sortBy + '&' +
-              'apiKey=' + apiKey;
+    var url = "http://newsapi.org/v2/everything?" +
+              keywordsQuery + "&" +
+              "domains=" + domains + "&" +
+              "from=" + from + "&" +
+              "language=" + language + "&" +
+              "sortBy=" + sortBy + "&" +
+              "apiKey=" + apiKey;
     
     var request = new Request(proxy + url);
 
