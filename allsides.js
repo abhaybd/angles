@@ -1,21 +1,45 @@
-const csv = require('./node_modules/jquery-csv/src/jquery.csv.js'); // C:\Users\zhouc\vscode-workspace\angles\node_modules\jquery-csv\src\jquery.csv.js
-const $ = require("./angles/jquery-3.5.1.min.js"); // angles\jquery-3.5.1.min.js
-var allsides_data;
-$(document).ready(function () {
-    $.ajax({
-        type: "GET",
-        url: "allsides_data.csv",
-        dataType: "text",
-        success: function(data) {processData(data);}
-     });
+var allsidesData;
+$.get("https://github.com/favstats/AllSideR/raw/master/data/allsides_data.csv", function(data) {
+    allsidesData = processData(data);
+    console.log(allsidesData);
 });
 
-function processData(data) {
-    allsides_data = $.csv.toObjects(data);
-    console.log(allsides_data[0]);
+var allsidesData2;
+$.get("https://www.allsides.com/download/allsides_data.json", function(data) {
+    //
+});
+
+function processData(allText) {
+    var allTextLines = allText.split(/\r\n|\n/);
+    var headers = allTextLines[0].split(',');
+    var lines = [];
+
+    for (var i=1; i<allTextLines.length; i++) {
+        var data = allTextLines[i].split(',');
+        if (data.length == headers.length) {
+            var tarr = [];
+            for (var j=0; j<headers.length; j++) {
+                tarr.push(headers[j]+":"+data[j]);
+            }
+            lines.push(tarr);
+        }
+    }
+
+    return lines;
 }
 
+// Returns true if in AllSides data
 function isNews(url) {
-    // if url contains any host url's from allsides
+    // if url contains any host url's from allsides, return true
     return false;
+}
+
+// Returns bias of news 1-5
+function getBias(url) {
+    return 1;
+}
+
+// Returns list of news sources with opposite bias, each with name, url, bias
+function oppositeBias(bias) {
+    return [["name", "url", 1 /*bias*/]];
 }

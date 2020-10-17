@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/abhaybd/angles#readme",
   "dependencies": {
+    "jquery": "^3.5.1",
     "jquery-csv": "^1.0.11"
   }
 }
