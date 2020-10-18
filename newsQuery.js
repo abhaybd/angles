@@ -1,4 +1,4 @@
-const apiKey = "edb5995c5150404fbc55e6530b36cddc";
+const apiKey = "4f010001c9f14c2eb9288c298c164b07";
 
 // @param keywords: list of keywords
 // @param domains: A comma-seperated string of domains (eg bbc.co.uk, techcrunch.com, engadget.com) to restrict the search to.
@@ -49,6 +49,14 @@ function getMonthAgo() {
     } else {
         month--;
     }
+    
+    if (day == 31) {
+        if (month==2) {
+            day = 28;
+        } else if ((month <= 7 && month%2 == 0) || (month>=8 && month%2==1)) {
+            day = 30;
+        }
+    }  
     
     var mzeros = "";
     if (month < 10) {

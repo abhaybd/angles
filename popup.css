@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-.slider {
+.slider{
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100px; /* Full-width */
@@ -21,26 +21,23 @@
     rgba(255, 0, 0, 0.85) 72.27%
   ); /* Grey background */
   outline: none; /* Remove outline */
-  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
-  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
-  transition: opacity 0.2s;
   border-radius: 15px;
-}
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+  border-bottom: #d3d3d3 1px solid;
+} 
+.slider::-webkit-slider-thumb{
+  /* -webkit-appearance: none; Override default look */
+  display:inline-block;
   appearance: none;
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
   background: #4caf50; /* Green background */
   cursor: pointer; /* Cursor on hover */
   border-radius: 15px;
 }
-.slider::-moz-range-thumb {
-  width: 25px; /* Set a specific slider handle width */
-  height: 25px; /* Slider handle height */
+.slider::-moz-range-thumb{
+  display:inline-block;
+  width: 15px; /* Set a specific slider handle width */
+  height: 15px; /* Slider handle height */
   background: #4caf50; /* Green background */
   cursor: pointer; /* Cursor on hover */
   border-radius: 15px;
@@ -48,11 +45,6 @@
 
 body {
   margin: 0px;
-}
-.article-image * {
-  all: initial;
-  max-width: 80;
-  max-height: 40;
 }
 
 #angles-floater-content {
@@ -68,7 +60,7 @@ body {
   display: inline-block;
   font-size: small;
   top: 25px;
-  left: 150px;
+  left: 145px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
@@ -83,23 +75,14 @@ body {
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
-
-.bias-bar {
+.slidercontainer{
   all: initial;
-  position: absolute;
   display: inline-block;
   top: 15px;
   right: 30px;
   width: 100px;
   height: 15px;
-  background: linear-gradient(
-    90deg,
-    rgba(20, 0, 255, 0.85) 23.18%,
-    rgba(255, 0, 0, 0.85) 72.27%
-  );
-  /* box-sizing: border-box; */
-  border-radius: 15px;
-  margin: 10px;
+  margin:10px;
   box-sizing: border-box;
 }
 

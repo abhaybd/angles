@@ -52,7 +52,11 @@ chrome.runtime.onMessage.addListener(
                 return true;
 
             case "news":
-                getRelevantNews(request.keywords, request.publisher).then(articles => sendResponse({articles: articles}));
+                getRelevantNews(request.keywords, request.publisher).then(articles => {
+                    getBias(request.publisher).then(bias => {
+                        sendResponse({articles: articles, currBias: bias});
+                    });
+                });
                 return true;
 
             case "loadFloaterHtml":

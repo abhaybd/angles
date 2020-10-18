@@ -34,12 +34,15 @@ function populateFloater(floater, publisher) {
     getKeywords().then(keywords => {
         relevantNews(keywords, publisher, response => {
             floater.find(".current-article").text(document.title);
-            const articles = response.slice(0, 5);
+            const valueMapper = x => (x-1) * 25;
+            document.getElementById("source-slider").value = valueMapper(response.currBias);
+            const articles = response.articles.slice(0, 5);
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
                 article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
-                article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
+                const slider = $(`<div class = 'slidercontainer'><input type='range' min='1' max='100' value='${valueMapper(articleObj.bias)}' class='slider' disabled></div>`);
+                article.append(slider);
                 articlesRoot.append(article);
             }
         });
