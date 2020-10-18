@@ -22,7 +22,7 @@ function populateFloater(floater, publisher) {
     getKeywords().then(keywords => {
         relevantNews(keywords, publisher, response => {
             floater.find(".current-article").text(document.title);
-            const articles = response.articles.slice(0, 5);
+            const articles = response.slice(0, 5);
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
