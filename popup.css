@@ -1,24 +1,37 @@
+@font-face {
+    font-family:'Bitter', sans-serif;
+    src: url(https://fonts.googleapis.com/css?family=Bitter);
+  }
+
 #angles-floater-content {
+    all:initial;
     border-radius:15px;
+    font-family: 'Bitter', sans-serif;
 }
 
 .indicator-l{
+    all:initial;
     position: absolute;
     display:inline-block;
     font-size: small;
     top:25px;
-    left:165px;
+    left:150px;
+    font-family: 'Bitter', sans-serif;
 }
 
 .indicator-r {
+  all:initial;
   position: absolute;
   display: inline-block;
   font-size: small;
   top: 25px;
   right: 25px;
+  font-family: 'Bitter', sans-serif;
 }
+
 .popup-top {
-  display: flex;
+  all:initial;  
+  display: inline-block;
   white-space: nowrap;
   width: 300px;
   height: 50px;
@@ -29,13 +42,16 @@
 }
 
 .popup-source {
+  all:initial;
   display: inline-block;
   font-weight: bold;
   font-size: 2em;
   padding: 10px;
+  font-family: 'Bitter', sans-serif;
 }
 
 .bias-bar {
+  all:initial;
   position: absolute;
   display: inline-block;
   top: 15px;
@@ -54,8 +70,9 @@
 }
 
 .popup-mid {
+  all:initial;
   display: flex;
-  white-space: nowrap;
+  overflow-wrap:break-word;
   width: 300px;
   height: 100px;
   background: #ffffff;
@@ -64,15 +81,18 @@
 }
 
 .section-title {
+  all:initial;
   display: inline-block;
+  overflow-wrap: break-word;
   font-weight: bold;
   font-size: 1em;
   padding: 10px;
 }
 
 .popup-bottom {
+  all:initial;
+  overflow-wrap: break-word;
   display: flex;
-  white-space: nowrap;
   width: 300px;
   height: 300px;
   background: #c4c4c4;
