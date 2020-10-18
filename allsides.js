@@ -6,8 +6,8 @@ $.get("https://github.com/favstats/AllSideR/raw/master/data/allsides_data.csv", 
 
 var allsidesData2;
 $.get("https://www.allsides.com/download/allsides_data.json", function(data) {
-    allsidesData2 = data;
-    // console.log(allsidesData2);
+    allsidesData2 = data.filter(news => news["url"].length > 0);
+    console.log(allsidesData2);
 });
 
 function processData(allText) {
@@ -35,8 +35,8 @@ async function getPublisher(URL) {
     while(!allsidesData2 || !allsidesData)
         await new Promise(resolve => setTimeout(resolve, 250));
     
-    let filter1 = allsidesData2.filter(news => news["url"].length > 0 && URL.includes(splitUrl(news["url"])));
-    // check if allsidesdata contains object with same news_source
+    let filter1 = allsidesData2.filter(news => URL.includes(splitUrl(news["url"])));
+    // check if allsidesData contains object with same news_source
     let filter2 = [];
     if (filter1.length > 0) {
         // console.log(filter1);
@@ -96,7 +96,7 @@ async function oppositeBias(bias) {
 }
 
 function inAllsidesData2(publisher) {
-    return allsidesData2.filter(news => news["url"].length > 0 && news["news_source"] == publisher).length > 0;
+    return allsidesData2.filter(news => samePublisher(news["news_source"], publisher)).length > 0;
 }
 
 // Returns random subarray of length n
@@ -118,8 +118,8 @@ function getRandom(arr, n) {
             bias: r["rating_num"],
         };
         // Get url
-        let filter = allsidesData2.filter(news => news["news_source"] == r["news_source"]);
-        news.url = filter[0]["url"];
+        let filter = allsidesData2.filter(news => samePublisher(news["news_source"], r["news_source"]));
+        news.url = splitUrl(filter[0]["url"]);
         output.push(news);
     }
     return output;
