@@ -1,12 +1,3 @@
-function getKeywords() {
-    let text = $("p").text().toString();
-    text = text.replaceAll(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)?/gi, "");
-    text = text.replaceAll(/[\[\]+\-@#^*_=]/gi, "");
-    text = text.replaceAll(/([!.;:,?)])(\w)/gi, "$1 $2");
-    // pass text to nlp for keyword extraction
-    return []; // TODO: this should be result from call
-}
-
 function relevantNews(keywords, publisher, callback) {
     chrome.runtime.sendMessage({reqType: "news", keywords: keywords}, function(response) {
         callback(response.articles);
@@ -14,23 +5,20 @@ function relevantNews(keywords, publisher, callback) {
 }
 
 function expandFloater(floater, publisher) {
-    const keywords = getKeywords().slice(0, 5);
-    relevantNews(keywords, publisher, articles => {
-        floater.removeClass("collapsed").addClass("expanded");
-        floater.empty();
-        chrome.runtime.sendMessage({reqType: "loadFloaterHtml"}, function(response) {
-            let html = response.replaceAll(/[\s\S]+<body>/gi, "").replaceAll(/<\/body>[\s\S]+/gi, "");
-            console.log(html);
-            floater.html(html);
-        });
-        // TODO: display this news
-    }); // assume format {url: "", title: "", publisher: ""}
+    floater.removeClass("collapsed").addClass("expanded");
+    floater.empty();
+    chrome.runtime.sendMessage({reqType: "loadFloaterHtml"}, function(response) {
+        let html = response.replaceAll(/[\s\S]+<body>/gi, "").replaceAll(/<\/body>[\s\S]+/gi, "");
+        console.log(html);
+        floater.html(html);
+        populateFloater(floater, publisher);
+    });
 }
 
 function enableFloater(publisher) {
     const floater = $("<div id='angles-floater' class='collapsed'><div>Angles</div></div>");
     floater.on("click", function() {
-        expandFloater(floater);
+        expandFloater(floater, publisher);
     });
     $("body").append(floater);
     console.log(floater);
