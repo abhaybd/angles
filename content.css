@@ -7,6 +7,11 @@
   border-radius: 15px;
 }
 
+#collapse-button {
+  position: relative;
+  transform: translate(-40px, 0);
+}
+
 #angles-floater.collapsed {
   border-radius: 15px 0px 0px 15px;
   width: 50px;

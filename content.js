@@ -4,13 +4,23 @@ function relevantNews(keywords, publisher, callback) {
     });
 }
 
+function collapseFloater(floater) {
+    floater.empty();
+    floater.removeClass("expanded").addClass("collapsed");
+    floater.append("<div>Angles</div>");
+}
+
 function expandFloater(floater, publisher) {
     floater.removeClass("collapsed").addClass("expanded");
     floater.empty();
+    const backButton = $("<div id='collapse-button'>></div>");
+    backButton.on("click", () => collapseFloater(floater));
+    floater.off("click");
+    floater.prepend(backButton);
     chrome.runtime.sendMessage({reqType: "loadFloaterHtml"}, function(response) {
         let html = response.replaceAll(/[\s\S]+<body>/gi, "").replaceAll(/<\/body>[\s\S]+/gi, "");
         console.log(html);
-        floater.html(html);
+        floater.append(html);
         populateFloater(floater, publisher);
     });
 }
