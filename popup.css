@@ -84,6 +84,8 @@
   all:initial;
   display: inline-block;
   overflow-wrap: break-word;
+  font-weight: bold;
+  font-size: 1em;
   padding: 10px;
 }
 
