@@ -10,7 +10,7 @@ chrome.runtime.onMessage.addListener(
     async function(request, sender, sendResponse) {
         console.log("From tab: " + sender.tab.url);
         switch (request.reqType) {
-            case "isNews":
+            case "publisher":
                 sendResponse({publisher: getPublisher(request.url)});
                 break;
 
@@ -18,6 +18,19 @@ chrome.runtime.onMessage.addListener(
                 const news = await getRelevantNews(request.keywords, request.publisher);
                 sendResponse({articles: news});
                 break;
+
+            case "loadFloaterHtml":
+                let url = chrome.extension.getURL("popup.html");
+                console.log("floater: " + url);
+                $.ajax({
+                    url: url,
+                    dataType: "html",
+                    success: function(data) {
+                        console.log("data " + data);
+                        sendResponse(data);
+                    }
+                });
+                return true; // signals to chrome to keep sendResponse alive
         }
     }
 );
