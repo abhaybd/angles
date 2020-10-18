@@ -36,7 +36,7 @@ exports.getRelevantEntities = (req, res) => {
   });
 };
 
-async function getEntities(articleText, n=5) {  
+async function getEntities(articleText) {  
   // Instantiates a client
   const client = new language.LanguageServiceClient();
 
@@ -45,34 +45,19 @@ async function getEntities(articleText, n=5) {
     type: 'PLAIN_TEXT',
   };
 
-  // Detects the sentiment of the text
+  // Detects the entities in the text
   const [result] = await client.analyzeEntities({document});
   var entities = result.entities;
 
   // Sort entities by salience
   entities.sort((a, b) => b.salience - a.salience);
 
-  // Return top n entities (5 default)
-  // If n > entities.length, return entities
+  // Get keywords from the entities
   let keywords = [];
-  /*
-  for (i = 0; i < n; i++) {
-    if (n === entities.length) break;
-    let entity;
-    try {
-      entity = JSON.parse(entities[i]);
-    } catch (e) {
-      entity = entities[i];
-    }
-    keywords.push(entity.name);
-  }
-  */
   let i = 0;
   entities.forEach(entity => {
-    if (i < n) {
-      keywords.push(entity.name);
-      i++;
-    }
+    keywords.push(entity.name);
+    i++;
   });
   return JSON.stringify({"keywords": keywords});
 }
