@@ -3,7 +3,6 @@ function getKeywords() {
     text = text.replaceAll(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)?/gi, "");
     text = text.replaceAll(/[\[\]+\-@#^*_=]/gi, "");
     text = text.replaceAll(/([!.;:,?)])(\w)/gi, "$1 $2");
-    console.log(text);
     // pass text to nlp for keyword extraction
     return []; // TODO: this should be result from call
 }
@@ -16,10 +15,14 @@ function relevantNews(keywords, publisher, callback) {
 
 function expandFloater(floater, publisher) {
     const keywords = getKeywords().slice(0, 5);
-    relevantNews(keywords, publisher, function(articles) {
+    relevantNews(keywords, publisher, articles => {
         floater.removeClass("collapsed").addClass("expanded");
         floater.empty();
-        floater.append(`<div id='angles-curr-article'><div class='title'>${document.title}</div></div>`);
+        chrome.runtime.sendMessage({reqType: "loadFloaterHtml"}, function(response) {
+            let html = response.replaceAll(/[\s\S]+<body>/gi, "").replaceAll(/<\/body>[\s\S]+/gi, "");
+            console.log(html);
+            floater.html(html);
+        });
         // TODO: display this news
     }); // assume format {url: "", title: "", publisher: ""}
 }

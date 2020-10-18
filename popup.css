@@ -1,11 +1,5 @@
-body{
+#angles-floater-content {
     border-radius:15px;
-}
-
-button{
-    height: 30px;
-    width: 30px;
-    outline:none;
 }
 
 .indicator-l{
