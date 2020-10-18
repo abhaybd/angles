@@ -10,7 +10,7 @@
   },
   "content_scripts": [
     {
-      "js": ["jquery-3.5.1.min.js", "content.js"],
+      "js": ["jquery-3.5.1.min.js", "floater.js", "content.js"],
       "css": ["content.css", "popup.css"],
       "matches": ["https://*/*", "http://*/*"]
     }
@@ -29,6 +29,8 @@
     "32": "images/ANGLES32.png",
     "48": "images/ANGLES48.png",
     "128": "images/ANGLES128.png"
-  }
-  
+  },
+  "web_accessible_resources": [
+    "images/collapse.png"
+  ]
 }

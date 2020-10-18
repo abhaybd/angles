@@ -1,10 +1,17 @@
 #angles-floater-content{
+  position: relative;
   width: 300px;
   height: 350px;
   background: #C4C4C4;
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 15px;
+}
+
+#collapse-button {
+  all: initial;
+  position: absolute;
+  transform: translate(-20px, 0);
 }
 
 #angles-floater.collapsed {
