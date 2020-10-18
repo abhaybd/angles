@@ -1,3 +1,7 @@
+const blacklist = new Set(["some", "things", "and", "the", "data", "for", "cookies", "browser", "way", "matters",
+    "privacy", "ads", "privacy preferences", "cnn", "cnnupdated"]);
+
+
 function getKeywords() {
     let text = $("p").text().toString();
     text = text.replaceAll(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)?/gi, "");
@@ -12,7 +16,15 @@ function getKeywords() {
             contentType: "application/json",
             dataType: "json",
             success: function(data) {
-                resolve(data.keywords.slice(0, 5));
+                const keywords = [];
+                for (let i = 0; i < data.keywords.length && keywords.length < 5; i++) {
+                    let word = data.keywords[i];
+                    if (!blacklist.has(word.toLowerCase())) {
+                        keywords.push(word);
+                    }
+                }
+                console.log(keywords);
+                resolve(keywords);
             }
         });
     }));
@@ -26,11 +38,6 @@ function populateFloater(floater, publisher) {
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
-                const imageDiv = $("<div class='article-image'></div>");
-                $.get("https://cors-anywhere.herokuapp.com/" + articleObj.url, function(data) {
-                    imageDiv.append($(data).find("img").first());
-                });
-                article.append(imageDiv);
                 article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
                 article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
                 articlesRoot.append(article);
