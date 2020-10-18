@@ -10,7 +10,7 @@
   width: 100%;
 }
 
-.slider {
+.slider{
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
   width: 100px; /* Full-width */
@@ -23,12 +23,9 @@
   outline: none; /* Remove outline */
   border-radius: 15px;
   border-bottom: #d3d3d3 1px solid;
-}
-.slider:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-.slider::-webkit-slider-thumb {
-  -webkit-appearance: none; /* Override default look */
+} 
+.slider::-webkit-slider-thumb{
+  /* -webkit-appearance: none; Override default look */
   display:inline-block;
   appearance: none;
   width: 15px; /* Set a specific slider handle width */
@@ -37,7 +34,7 @@
   cursor: pointer; /* Cursor on hover */
   border-radius: 15px;
 }
-.slider::-moz-range-thumb {
+.slider::-moz-range-thumb{
   display:inline-block;
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
