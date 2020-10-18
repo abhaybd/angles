@@ -6,6 +6,43 @@ chrome.runtime.onInstalled.addListener(async function() {
     console.log("queryResults " + queryResults);
 });
 
+function getRelevantNews(keywords, publisher) {
+    // const bias = getBias(publisher);
+    // const publishers = oppositeBias(bias);
+    return new Promise(resolve => resolve(JSON.parse("{\n" +
+        "\"status\": \"ok\",\n" +
+        "\"totalResults\": 3253,\n" +
+        "\"articles\": [\n" +
+        "{\n" +
+        "\"source\": {\n" +
+        "\"id\": \"bbc-news\",\n" +
+        "\"name\": \"BBC News\"\n" +
+        "},\n" +
+        "\"bias\": 1,\n" +
+        "\"author\": \"https://www.facebook.com/bbcnews\",\n" +
+        "\"title\": \"'One day everyone will use China's digital currency'\",\n" +
+        "\"description\": \"China plans a digital version of its currency, which some say could become a big global payment system.\",\n" +
+        "\"url\": \"https://www.bbc.co.uk/news/business-54261382\",\n" +
+        "\"urlToImage\": \"https://ichef.bbci.co.uk/news/1024/branded_news/C414/production/_114569105_chandler.racks.jpg\",\n" +
+        "\"publishedAt\": \"2020-09-24T23:16:08Z\",\n" +
+        "\"content\": \"Image copyrightChandler GuoImage caption\\r\\n Chandler Guo at one of his cryptocurrency mines\\r\\nChandler Guo was a pioneer in cryptocurrency, the digital currencies that can be created and used independe… [+5995 chars]\"\n" +
+        "},\n" +
+        "{\n" +
+        "\"source\": {\n" +
+        "\"id\": \"engadget\",\n" +
+        "\"name\": \"Engadget\"\n" +
+        "},\n" +
+        "\"bias\": 1,\n" +
+        "\"author\": \"Mariella Moon\",\n" +
+        "\"title\": \"'The Dark Overlord' hacking group member sentenced to five years in prison\",\n" +
+        "\"description\": \"A US district judge has sentenced a UK National to five years in federal prison for participating in the cybercrime activities of hacking collective group “The Dark Overlord.” Nathan Wyatt was extradited from the UK to the US in December 2019 for targeting co…\",\n" +
+        "\"url\": \"https://www.engadget.com/the-dark-overlord-member-sentenced-063851213.html\",\n" +
+        "\"urlToImage\": \"https://o.aolcdn.com/images/dims?resize=1200%2C630&crop=1200%2C630%2C0%2C0&quality=95&image_uri=https%3A%2F%2Fs.yimg.com%2Fos%2Fcreatr-images%2F2019-06%2Fea58ee80-863b-11e9-b5ff-71b01764a4c6&client=amp-blogside-v2&signature=94170af4e99228d984f5e1d77a0d3d5945454d30\",\n" +
+        "\"publishedAt\": \"2020-09-22T06:38:51Z\",\n" +
+        "\"content\": \"A US district judge has sentenced a UK National to five years in federal prison for participating in the cybercrime activities of hacking collective group “The Dark Overlord.” Nathan Wyatt was extrad… [+961 chars]\"\n" +
+        "}]}")));
+}
+
 chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log("From tab: " + sender.tab.url);
@@ -15,7 +52,7 @@ chrome.runtime.onMessage.addListener(
                 break;
 
             case "news":
-                const news = getRelevantNews(request.keywords, request.publisher).then(articles => sendResponse({articles: articles}));
+                getRelevantNews(request.keywords, request.publisher).then(articles => sendResponse({articles: articles}));
                 return true;
 
             case "loadFloaterHtml":
@@ -34,7 +71,9 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-async function getRelevantNews(keywords, publisher) {
+
+// TODO: remove garbage to replace above func
+async function getRelevadsgntNews(keywords, publisher) {
     const bias = getBias(publisher);
     const publishers = oppositeBias(bias);
     
