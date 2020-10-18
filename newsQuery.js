@@ -33,12 +33,15 @@ async function queryNews(keywords, domains) {
     return response.json();
 }
 
-// Return timestamp of the day one month ago
 function getMonthAgo() {
     var today = new Date();
     var year = today.getFullYear();
-    var month = today.getMonth();
-    var day = today.getDay();
+    var month = today.getMonth()+1;
+    var day = today.getDate();
+    
+    console.log("year " + year);
+    console.log("month " + month);
+    console.log("day " + day);
     
     if (month == 1) {
         month = 12;
