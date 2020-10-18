@@ -75,7 +75,7 @@ async function getRelevantNews(keywords, publisher) {
         
         //find bias of currentPublisher and set that as current article's bias
         for (let j = 0; j < publishers.length; j++) {
-            if (publishers[j].publisher === currentPublisher) {
+            if (samePublisher(publishers[j].publisher.toLowerCase(), currentPublisher.toLowerCase())) {
                 articles[i]["bias"] = oppositeBiases[j];
                 break;
             }
