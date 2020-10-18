@@ -31,6 +31,7 @@
     "128": "images/ANGLES128.png"
   },
   "web_accessible_resources": [
-    "images/collapse.png"
+    "images/collapse.png",
+    "images/collapse1.png"
   ]
 }
