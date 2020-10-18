@@ -1,3 +1,8 @@
+@font-face {
+  font-family:'Bitter', sans-serif;
+  src: url(https://fonts.googleapis.com/css?family=Bitter);
+}
+
 #angles-floater-content{
   position: relative;
   width: 300px;
@@ -18,17 +23,24 @@
   border-radius: 15px 0px 0px 15px;
   width: 50px;
   height: 200px;
-  color: white;
-  background-color: red;
+  color: black;
+  background-color: #F9AA33;
 }
 
 #angles-floater.collapsed > * {
   transform: rotate(-90deg);
   text-align: center;
+  margin-top: 95px;
+  font-family:'Bitter', sans-serif;
+  font-size: 2em;
 }
 
 #angles-floater {
   position: fixed;
   top: 100px;
   right: 0;
+}
+
+#floater-name {
+  margin-top: 80px;
 }
