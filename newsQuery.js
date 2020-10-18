@@ -6,8 +6,9 @@ async function queryNews(keywords, domains) {
     const sortBy = "popularity"; // other possible values: "popularity", "publishedAt"
     const language = "en"; // searching for only English articles
     const from = getMonthAgo(); // default start date of articles
+    const pageSize = 100;
     
-    var keywordsQuery = "q=" + keywords[0];
+    var keywordsQuery = keywords[0];
     for (let i = 1; i < keywords.length; i++) {
         keywordsQuery += " AND " + keywords[i];
     }
@@ -18,11 +19,12 @@ async function queryNews(keywords, domains) {
     keywordsQuery = encodeURIComponent(keywordsQuery);
     console.log("keyWordsQuery " + keywordsQuery);
     
-    var url = "http://newsapi.org/v2/everything?" + keywordsQuery + 
+    var url = "http://newsapi.org/v2/everything?q=" + keywordsQuery +
               "&domains=" + domains +
               "&from=" + from +
               "&language=" + language +
               "&sortBy=" + sortBy +
+              "&pageSize=" + pageSize +
               "&apiKey=" + apiKey;
     console.log("url " + url);
     

@@ -71,6 +71,21 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
+function randomSample(arr, n) {
+    if (arr.length <= n) {
+        return arr;
+    }
+    const sample = [];
+    const chosen = new Set();
+    while (sample.length < n) {
+        let rand;
+        do {
+            rand = Math.floor(Math.random() * arr.length);
+        } while (chosen.has(rand));
+        sample.push(arr[rand]);
+    }
+    return sample;
+}
 
 // TODO: remove garbage to replace above func
 async function getRelevantNews(keywords, publisher) {
@@ -106,6 +121,7 @@ async function getRelevantNews(keywords, publisher) {
             }
         }
     }
+    articles = randomSample(articles, 5);
     console.log(articles);
     return articles;
 }

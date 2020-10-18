@@ -17,7 +17,7 @@ function getKeywords() {
             dataType: "json",
             success: function(data) {
                 const keywords = [];
-                for (let i = 0; i < data.keywords.length && keywords.length < 5; i++) {
+                for (let i = 0; i < data.keywords.length && keywords.length < 3; i++) {
                     let word = data.keywords[i];
                     if (!blacklist.has(word.toLowerCase())) {
                         keywords.push(word);
