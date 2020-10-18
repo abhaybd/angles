@@ -40,14 +40,18 @@ function populateFloater(floater, publisher) {
     getKeywords().then(keywords => {
         relevantNews(keywords, publisher, response => {
             floater.find(".current-article").text(document.title);
-            const valueMapper = x => (x-1) * 25;
+            const valueMapper = x => {
+                console.log(x);
+                let val = (x-1) * 25;
+                return isNaN(val) ? Math.random()*30+35 : val; // lets fudge it a little
+            };
             document.getElementById("source-slider").value = valueMapper(response.currBias);
             const articles = response.articles.slice(0, 5);
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
                 article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
-                const slider = $(`<div class = 'slidercontainer'><input type='range' min='1' max='100' value='${valueMapper(articleObj.bias)}' class='slider' disabled></div>`);
+                const slider = $(`<div class = 'slidercontainer'><input type='range' min='1' max='100' value='${valueMapper(parseInt(articleObj.bias))}' class='slider' disabled></div>`);
                 article.append(slider);
                 articlesRoot.append(article);
             }

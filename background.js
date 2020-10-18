@@ -81,7 +81,7 @@ async function getRelevantNews(keywords, publisher) {
             }
         }
     }
-    articles = randomSample(articles, 5);
+    // articles = randomSample(articles, 5);
     console.log(articles);
     return articles;
 }
