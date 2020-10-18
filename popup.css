@@ -3,6 +3,10 @@
     src: url(https://fonts.googleapis.com/css?family=Bitter);
   }
 
+.article-image * {
+    all:initial;
+}
+
 #angles-floater-content {
     all:initial;
     border-radius:15px;
