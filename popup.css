@@ -83,7 +83,7 @@ body {
   right: 30px;
   width: 100px;
   height: 15px;
-  margin:10px;
+  margin: 10px;
   box-sizing: border-box;
 }
 
@@ -113,10 +113,14 @@ body {
   display: flex;
   overflow-wrap: break-word;
   width: 300px;
-  height: 80px;
+  height: auto;
   background: #f1f1f1;
   border: 1px solid #c4c4c4;
   box-sizing: border-box;
+
+  position: relative;
+ 
+  min-height: 100% !important;
 }
 
 .section-title {
