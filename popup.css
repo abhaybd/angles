@@ -83,6 +83,7 @@
 .section-title {
   all:initial;
   display: inline-block;
+  overflow-wrap: break-word;
   font-weight: bold;
   font-size: 1em;
   padding: 10px;
@@ -91,6 +92,7 @@
 
 .popup-bottom {
   all:initial;
+  overflow-wrap: break-word;
   display: flex;
   white-space: nowrap;
   width: 300px;
