@@ -1,13 +1,13 @@
 var allsidesData;
 $.get("https://github.com/favstats/AllSideR/raw/master/data/allsides_data.csv", function(data) {
     allsidesData = processData(data);
-    console.log(allsidesData);
+    //console.log(allsidesData);
 });
 
 var allsidesData2;
 $.get("https://www.allsides.com/download/allsides_data.json", function(data) {
     allsidesData2 = data;
-    console.log(allsidesData2);
+    //console.log(allsidesData2);
 });
 
 function processData(allText) {
