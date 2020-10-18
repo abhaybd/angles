@@ -55,6 +55,7 @@ $(function() {
     console.log("Page loaded!");
 
     execIfNews(window.location.href, function(publisher) {
+        $("head").prepend("<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Bitter'>")
         enableFloater(publisher);
     });
 });
