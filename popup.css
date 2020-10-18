@@ -2,7 +2,14 @@
   font-family: "Bitter", sans-serif;
   src: url(https://fonts.googleapis.com/css?family=Bitter);
 }
+@font-face {
+    font-family: "Bitter", sans-serif;
+    src: url(https://fonts.googleapis.com/css?family=Lato);
+  }
 
+body{
+    margin:0px;
+}
 .article-image * {
   all: initial;
 }
@@ -11,6 +18,7 @@
   all: initial;
   border-radius: 15px;
   font-family: "Bitter", sans-serif;
+  margin:0px;
 }
 
 .indicator-l {
@@ -21,6 +29,7 @@
   top: 25px;
   left: 150px;
   font-family: "Bitter", sans-serif;
+  box-sizing: border-box;
 }
 
 .indicator-r {
@@ -31,6 +40,7 @@
   top: 25px;
   right: 25px;
   font-family: "Bitter", sans-serif;
+  box-sizing: border-box;
 }
 
 .bias-bar {
@@ -49,6 +59,7 @@
   /* box-sizing: border-box; */
   border-radius: 15px;
   margin: 10px;
+  box-sizing: border-box;
 }
 
 .popup-top {
@@ -59,7 +70,7 @@
   height: 50px;
   background: #c4c4c4;
   /* border: 1px solid #000000; */
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   border-radius: 15px 15px 0px 0px;
 }
 
@@ -92,10 +103,10 @@
   display: inline-block;
   /* white-space: nowrap; */
   overflow-wrap: break-word;
-  font-weight: bold;
-  font-size: 1em;
+  font-weight: bolder;
+  font-size: 1.2em;
   padding: 10px;
-  font-family: "Bitter", sans-serif;
+  font-family: "Lato", sans-serif;
 }
 
 .popup-bottom {
