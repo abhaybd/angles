@@ -11,6 +11,7 @@
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 15px;
+  z-index: -1;
 }
 
 #collapse-button {
@@ -25,6 +26,10 @@
   height: 200px;
   color: black;
   background-color: #F9AA33;
+}
+
+#angles-floater.collapsed:hover {
+  background-color:#c28529;
 }
 
 #angles-floater.collapsed > * {
@@ -43,4 +48,8 @@
 
 #floater-name {
   margin-top: 80px;
+}
+
+#collapse-button:hover{
+  background-color:red;
 }
