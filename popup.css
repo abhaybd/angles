@@ -2,45 +2,46 @@
   font-family: "Bitter", sans-serif;
   src: url(https://fonts.googleapis.com/css?family=Bitter);
 }
+
 @font-face {
   font-family: "Lato", sans-serif;
   src: url(https://fonts.googleapis.com/css?family=Lato);
 }
+
 .slidecontainer {
   width: 100%;
 }
 
-.slider{
-  -webkit-appearance: none; /* Override default CSS styles */
+.slider {
+  -webkit-appearance: none;
   appearance: none;
-  width: 100px; /* Full-width */
-  height: 15px; /* Specified height */
+  width: 100px;
+  height: 15px;
   background: linear-gradient(
     90deg,
     rgba(20, 0, 255, 0.85) 23.18%,
     rgba(255, 0, 0, 0.85) 72.27%
   ); /* Grey background */
   outline: none; /* Remove outline */
+  border: 1px solid #000000;
   border-radius: 15px;
-  border-bottom: #d3d3d3 1px solid;
-} 
-.slider::-webkit-slider-thumb{
-  /* -webkit-appearance: none; Override default look */
-  display:inline-block;
+}
+
+.slider::-webkit-slider-thumb {
   appearance: none;
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-  background: #4caf50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #f9aa33; /* Green background */
   border-radius: 15px;
+  border: 1px solid #000000;
 }
-.slider::-moz-range-thumb{
-  display:inline-block;
+
+.slider::-moz-range-thumb {
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-  background: #4caf50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #f9aa33; /* Green background */
   border-radius: 15px;
+  border: 1px solid #000000;
 }
 
 body {
@@ -54,39 +55,35 @@ body {
   margin: 0px;
 }
 
+.flex-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .indicator-l {
   all: initial;
-  position: absolute;
   display: inline-block;
   font-size: small;
-  top: 25px;
-  left: 145px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
 
 .indicator-r {
   all: initial;
-  position: absolute;
   display: inline-block;
   font-size: small;
-  top: 25px;
-  right: 25px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
-.slidercontainer{
+.slidercontainer {
   all: initial;
   display: inline-block;
   top: 15px;
   right: 30px;
   width: 100px;
   height: 15px;
-  margin:10px;
-  box-sizing: border-box;
-}
-
-.popup-top {
   all: initial;
   display: inline-block;
   white-space: nowrap;
@@ -98,7 +95,7 @@ body {
   border-radius: 15px 15px 0px 0px;
 }
 
-.popup-source {
+.popup-source span {
   all: initial;
   display: inline-block;
   font-weight: bold;
@@ -112,9 +109,9 @@ body {
   display: flex;
   overflow-wrap: break-word;
   width: 300px;
-  height: 100px;
-  background: #ffffff;
-  border: 1px solid #000000;
+  height: 80px;
+  background: #f1f1f1;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
 }
 
@@ -140,6 +137,15 @@ body {
   box-sizing: border-box;
   border-radius: 0px 0px 15px 15px;
   overflow: auto;
+}
+
+.article{
+  border: 1px solid #000000;
+  border-radius:15px;
+  padding:5px;
+  margin:5px;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .current-article {

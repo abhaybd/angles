@@ -1,5 +1,5 @@
 const blacklist = new Set(["some", "things", "and", "the", "data", "for", "cookies", "browser", "way", "matters",
-    "privacy", "ads", "privacy preferences", "cnn", "cnnupdated"]);
+    "privacy", "ads", "privacy preferences", "cnn", "cnnupdated", "part", "title"]);
 
 async function scrapeText() {
     const url = window.location.href;
