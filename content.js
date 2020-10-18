@@ -1,6 +1,6 @@
 function relevantNews(keywords, publisher, callback) {
     chrome.runtime.sendMessage({reqType: "news", keywords: keywords, publisher: publisher}, function(response) {
-        callback(response.articles);
+        callback(response);
     });
 }
 
@@ -23,7 +23,10 @@ function expandFloater(floater, publisher) {
     floater.removeClass("collapsed").addClass("expanded");
     floater.empty();
     const imgUrl = chrome.extension.getURL("images/collapse.png");
+    const hoverImgUrl = chrome.extension.getURL("images/collapse1.png");
     const backButton = $(`<img id='collapse-button' src='${imgUrl}' alt="collapse"/>`);
+    backButton.on("mouseenter", () => $('#collapse-button').attr('src', hoverImgUrl));
+    backButton.on("mouseleave", () => $('#collapse-button').attr('src', imgUrl));
     backButton.on("click", () => collapseFloater(floater, publisher));
     setFloaterClickEnabled(floater, publisher, false);
     floater.prepend(backButton);

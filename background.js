@@ -1,11 +1,92 @@
-chrome.runtime.onInstalled.addListener(async function() {
-    console.log('check');
-    var keywords = ["president", "election"];
-    var domains = "cnn.com,foxnews.com";
-    var queryResults = await queryNews(keywords, domains);
-    console.log("queryResults " + queryResults);
-});
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+        console.log("From tab: " + sender.tab.url);
+        switch (request.reqType) {
+            case "publisher":
+                getPublisher(request.url).then(publisher => sendResponse({publisher: publisher}));
+                return true;
 
+            case "news":
+                getRelevantNews(request.keywords, request.publisher).then(articles => {
+                    getBias(request.publisher).then(bias => {
+                        sendResponse({articles: articles, currBias: bias});
+                    });
+                });
+                return true;
+
+            case "loadFloaterHtml":
+                let url = chrome.extension.getURL("popup.html");
+                console.log("floater: " + url);
+                $.ajax({
+                    url: url,
+                    dataType: "html",
+                    success: function(data) {
+                        console.log("data " + data);
+                        sendResponse(data);
+                    }
+                });
+                return true; // signals to chrome to keep sendResponse alive
+        }
+    }
+);
+
+function randomSample(arr, n) {
+    if (arr.length <= n) {
+        return arr;
+    }
+    const sample = [];
+    const chosen = new Set();
+    while (sample.length < n) {
+        let rand;
+        do {
+            rand = Math.floor(Math.random() * arr.length);
+        } while (chosen.has(rand));
+        sample.push(arr[rand]);
+    }
+    return sample;
+}
+
+// @param keywords: list of keywords
+// @param publisher: name of publisher of current article
+async function getRelevantNews(keywords, publisher) {
+    const bias = await getBias(publisher);
+    const publishers = await oppositeBias(bias);
+    
+    // domains must be comma-separated list of domain names
+    var domains = publishers[0].url;
+    for (let i = 1; i < publishers.length; i++) {
+        domains += "," + publishers[i].url.split('/')[0];
+    }
+    console.log("publishers " + publishers);
+    
+    var oppositeBiases = [];
+    for (let i = 0; i < publishers.length; i++) {
+        oppositeBiases.push(publishers[i].bias);
+    }
+    
+    console.log("domains " + domains);
+    
+    var response = await queryNews(keywords, domains);
+
+    var articles = response.articles;
+    
+    for (let i = 0; i < articles.length; i++) {
+        var currentPublisher = articles[i].source.name;
+        
+        //find bias of currentPublisher and set that as current article's bias
+        for (let j = 0; j < publishers.length; j++) {
+            if (samePublisher(publishers[j].publisher.toLowerCase(), currentPublisher.toLowerCase())) {
+                articles[i]["bias"] = oppositeBiases[j];
+                break;
+            }
+        }
+    }
+    // articles = randomSample(articles, 5);
+    console.log(articles);
+    return articles;
+}
+
+// deprecated
 function getRelevantNdsgews(keywords, publisher) {
     // const bias = getBias(publisher);
     // const publishers = oppositeBias(bias);
@@ -41,71 +122,4 @@ function getRelevantNdsgews(keywords, publisher) {
         "\"publishedAt\": \"2020-09-22T06:38:51Z\",\n" +
         "\"content\": \"A US district judge has sentenced a UK National to five years in federal prison for participating in the cybercrime activities of hacking collective group “The Dark Overlord.” Nathan Wyatt was extrad… [+961 chars]\"\n" +
         "}]}")));
-}
-
-chrome.runtime.onMessage.addListener(
-    function(request, sender, sendResponse) {
-        console.log("From tab: " + sender.tab.url);
-        switch (request.reqType) {
-            case "publisher":
-                getPublisher(request.url).then(publisher => sendResponse({publisher: publisher}));
-                return true;
-
-            case "news":
-                getRelevantNews(request.keywords, request.publisher).then(articles => sendResponse({articles: articles}));
-                return true;
-
-            case "loadFloaterHtml":
-                let url = chrome.extension.getURL("popup.html");
-                console.log("floater: " + url);
-                $.ajax({
-                    url: url,
-                    dataType: "html",
-                    success: function(data) {
-                        console.log("data " + data);
-                        sendResponse(data);
-                    }
-                });
-                return true; // signals to chrome to keep sendResponse alive
-        }
-    }
-);
-
-
-// TODO: remove garbage to replace above func
-async function getRelevantNews(keywords, publisher) {
-    const bias = await getBias(publisher);
-    const publishers = await oppositeBias(bias);
-    
-    // domains must be comma-separated list of domain names
-    var domains = publishers[0].url;
-    for (let i = 1; i < publishers.length; i++) {
-        domains += "," + publishers[i].url.split('/')[0];
-    }
-    console.log("publishers " + publishers);
-    
-    var oppositeBiases = [];
-    for (let i = 0; i < publishers.length; i++) {
-        oppositeBiases.push(publishers[i].bias);
-    }
-    
-    console.log("domains " + domains);
-    
-    var response = await queryNews(keywords, domains);
-
-    var articles = response.articles;
-    
-    for (let i = 0; i < articles.length; i++) {
-        var currentPublisher = articles[i].source.name;
-        
-        //find bias of currentPublisher and set that as current article's bias
-        for (let j = 0; j < publishers.length; j++) {
-            if (publishers[j].publisher === currentPublisher) {
-                articles[i]["bias"] = oppositeBiases[j];
-                break;
-            }
-        }
-    }
-    console.log(articles);
-    return articles;
 }

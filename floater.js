@@ -1,12 +1,18 @@
 const blacklist = new Set(["some", "things", "and", "the", "data", "for", "cookies", "browser", "way", "matters",
-    "privacy", "ads", "privacy preferences", "cnn", "cnnupdated"]);
+    "privacy", "ads", "privacy preferences", "cnn", "cnnupdated", "part", "title"]);
 
+async function scrapeText() {
+    const url = window.location.href;
+    return new Promise(resolve => {
+        $.get("https://extractorapi.com/api/v1/extractor/?apikey=99a0ee9cecec0f90e16e20fe3e4cdfac17814ff2&url=" + url, function(data) {
+            resolve(data.text);
+        });
+    })
+}
 
-function getKeywords() {
-    let text = $("p").text().toString();
-    text = text.replaceAll(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)?/gi, "");
-    text = text.replaceAll(/[\[\]+\-@#^*_=]/gi, "");
-    text = text.replaceAll(/([!.;:,?)])(\w)/gi, "$1 $2");
+async function getKeywords() {
+    let text = await scrapeText();
+    console.log(text);
     const nlpUrl = "https://us-west3-angles-dh2020.cloudfunctions.net/getRelevantEntities";
     return new Promise((resolve => {
         $.ajax({
@@ -17,7 +23,7 @@ function getKeywords() {
             dataType: "json",
             success: function(data) {
                 const keywords = [];
-                for (let i = 0; i < data.keywords.length && keywords.length < 5; i++) {
+                for (let i = 0; i < data.keywords.length && keywords.length < 2; i++) {
                     let word = data.keywords[i];
                     if (!blacklist.has(word.toLowerCase())) {
                         keywords.push(word);
@@ -34,12 +40,20 @@ function populateFloater(floater, publisher) {
     getKeywords().then(keywords => {
         relevantNews(keywords, publisher, response => {
             floater.find(".current-article").text(document.title);
-            const articles = response.slice(0, 5);
+            const valueMapper = x => {
+                console.log(x);
+                let val = (x-1) * 25;
+                return isNaN(val) ? Math.random()*30+35 : val; // lets fudge it a little
+            };
+            document.getElementById("source-slider").value = valueMapper(response.currBias);
+            const articles = response.articles.slice(0, 5);
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
                 article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
-                article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
+                console.log("bias: " + articleObj.bias);
+                const slider = $(`<div class = 'slidercontainer'><input type='range' min='1' max='100' value='${valueMapper(parseInt(articleObj.bias))}' class='slider' disabled></div>`);
+                article.append(slider);
                 articlesRoot.append(article);
             }
         });

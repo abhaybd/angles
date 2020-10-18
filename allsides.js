@@ -1,25 +1,25 @@
-var allsidesData;
+let allsidesData;
 $.get("https://github.com/favstats/AllSideR/raw/master/data/allsides_data.csv", function(data) {
     allsidesData = processData(data);
     // console.log(allsidesData);
 });
 
-var allsidesData2;
+let allsidesData2;
 $.get("https://www.allsides.com/download/allsides_data.json", function(data) {
     allsidesData2 = data.filter(news => news["url"].length > 0);
     // console.log(allsidesData2);
 });
 
 function processData(allText) {
-    var allTextLines = allText.split(/\r\n|\n/);
-    var headers = allTextLines[0].split(',');
-    var lines = [];
+    let allTextLines = allText.split(/\r\n|\n/);
+    let headers = allTextLines[0].split(',');
+    let lines = [];
 
-    for (var i=1; i<allTextLines.length; i++) {
-        var data = allTextLines[i].split(',');
-        if (data.length == headers.length && data[2] != "NA") { // Skip if rating = NA
-            var tarr = {};
-            for (var j=0; j<headers.length; j++) {
+    for (let i=1; i<allTextLines.length; i++) {
+        let data = allTextLines[i].split(',');
+        if (data.length === headers.length && data[2] !== "NA") { // Skip if rating = NA
+            let tarr = {};
+            for (let j=0; j<headers.length; j++) {
                 tarr[headers[j]] = data[j];
             }
             lines.push(tarr);
@@ -43,7 +43,7 @@ async function getPublisher(URL) {
         filter2 = allsidesData.filter(news => samePublisher(news["news_source"], filter1[0]["news_source"]));
     }
     // console.log("finished", filter2[0]["news_source"]);
-    if (filter2.length == 0) {
+    if (filter2.length === 0) {
         return null;
     }
     return filter2[0]["news_source"];
@@ -54,17 +54,20 @@ function splitUrl(URL) {
     return splitURL[splitURL.length - 1];
 }
 
+// Returns if 2 publishers are the same
 function samePublisher(p1, p2) {
+    if (p1.replaceAll(/\s/g, "") === p2.replaceAll(/\s/g, "")) return true;
+
     // console.log(p1, p2);
     let smaller = new Set(p1.split(/[^a-zA-Z0-9]/));
     let larger = new Set(p2.split(/[^a-zA-Z0-9]/));
     // console.log(smaller, larger);
     if (smaller.size > larger.size) {
-        temp = smaller;
+        let temp = smaller;
         smaller = larger;
         larger = temp;
     }
-    for (var s of smaller) {
+    for (let s of smaller) {
         if (s.length < 0) {
             continue;
         }
@@ -78,7 +81,7 @@ async function getBias(name) {
     while(!allsidesData)
         await new Promise(resolve => setTimeout(resolve, 250));
 
-    let filter = allsidesData.filter(news => news["news_source"] == name);
+    let filter = allsidesData.filter(news => news["news_source"] === name);
     // console.log("bias ", filter[0]["rating_num"]);
     return parseInt(filter[0]["rating_num"]);
 }
@@ -87,9 +90,12 @@ async function getBias(name) {
 async function oppositeBias(bias) {
     while(!allsidesData)
         await new Promise(resolve => setTimeout(resolve, 250));
-    let filter = allsidesData.filter(news => inAllsidesData2(news["news_source"]) && ((bias < 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 4))
-    || (bias > 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 2))
-    || (bias == 3 && (parseInt(news["rating_num"]) >= 2 && parseInt(news["rating_num"]) <= 4)))
+    let filter = allsidesData.filter(news => {
+        let rating = parseInt(news["rating_num"]);
+        return inAllsidesData2(news["news_source"]) && ((bias < 3 && (rating === 3 || rating === 4))
+                || (bias > 3 && (rating === 3 || rating === 2))
+                || (bias === 3 && (rating >= 2 && rating <= 4)));
+        }
     );
     let sampleSize = Math.min(5, filter.length);
     // console.log(getRandom(filter, sampleSize));
@@ -102,18 +108,18 @@ function inAllsidesData2(publisher) {
 
 // Returns random subarray of length n
 function getRandom(arr, n) {
-    var result = new Array(n),
+    let result = new Array(n),
         len = arr.length,
         taken = new Array(len);
     if (n > len)
         throw new RangeError("getRandom: more elements taken than available");
     while (n--) {
-        var x = Math.floor(Math.random() * len);
+        let x = Math.floor(Math.random() * len);
         result[n] = arr[x in taken ? taken[x] : x];
         taken[x] = --len in taken ? taken[len] : len;
     }
-    var output = [];
-    for (var r of result) {
+    let output = [];
+    for (let r of result) {
         let news = {
             publisher: r["news_source"],
             bias: r["rating_num"],
