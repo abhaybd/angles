@@ -48,8 +48,8 @@ chrome.runtime.onMessage.addListener(
         console.log("From tab: " + sender.tab.url);
         switch (request.reqType) {
             case "publisher":
-                sendResponse({publisher: getPublisher(request.url)});
-                break;
+                getPublisher(request.url).then(publisher => sendResponse({publisher: publisher}));
+                return true;
 
             case "news":
                 getRelevantNews(request.keywords, request.publisher).then(articles => sendResponse({articles: articles}));
@@ -101,7 +101,7 @@ async function getRelevadsgntNews(keywords, publisher) {
         
         //find bias of currentPublisher and set that as current article's bias
         for (let j = 0; j < publishers.length; j++) {
-            if (publishers[j][0].equals(currentPublisher)) {
+            if (publishers[j][0] === currentPublisher) {
                 articles[i]["bias"] = oppositeBiases[j];
                 break;
             }
