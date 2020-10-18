@@ -3,22 +3,63 @@
   src: url(https://fonts.googleapis.com/css?family=Bitter);
 }
 @font-face {
-    font-family: "Bitter", sans-serif;
-    src: url(https://fonts.googleapis.com/css?family=Lato);
-  }
+  font-family: "Lato", sans-serif;
+  src: url(https://fonts.googleapis.com/css?family=Lato);
+}
+.slidecontainer {
+  width: 100%;
+}
 
-body{
-    margin:0px;
+.slider {
+  -webkit-appearance: none; /* Override default CSS styles */
+  appearance: none;
+  width: 100px; /* Full-width */
+  height: 15px; /* Specified height */
+  background: linear-gradient(
+    90deg,
+    rgba(20, 0, 255, 0.85) 23.18%,
+    rgba(255, 0, 0, 0.85) 72.27%
+  ); /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.7; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: 0.2s; /* 0.2 seconds transition on hover */
+  transition: opacity 0.2s;
+  border-radius: 15px;
+}
+.slider:hover {
+  opacity: 1; /* Fully shown on mouse-over */
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4caf50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 15px;
+}
+.slider::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #4caf50; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  border-radius: 15px;
+}
+
+body {
+  margin: 0px;
 }
 .article-image * {
   all: initial;
+  max-width: 80;
+  max-height: 40;
 }
 
 #angles-floater-content {
   all: initial;
   border-radius: 15px;
   font-family: "Bitter", sans-serif;
-  margin:0px;
+  margin: 0px;
 }
 
 .indicator-l {
@@ -74,10 +115,6 @@ body{
   border-radius: 15px 15px 0px 0px;
 }
 
-.article-image {
-  all: initial;
-}
-
 .popup-source {
   all: initial;
   display: inline-block;
@@ -122,13 +159,13 @@ body{
   overflow: auto;
 }
 
-.current-article{
+.current-article {
   all: initial;
   display: inline-block;
   overflow-wrap: break-word;
 }
 
-.contrasting-article{
+.contrasting-article {
   all: initial;
   display: inline-block;
   overflow-wrap: break-word;
