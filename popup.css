@@ -146,6 +146,7 @@ body {
   box-sizing: border-box;
   border-radius: 0px 0px 15px 15px;
   overflow: auto;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .article{
