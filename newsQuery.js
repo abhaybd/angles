@@ -19,8 +19,8 @@ async function queryNews(keywords, domains) {
     keywordsQuery = encodeURIComponent(keywordsQuery);
     console.log("keyWordsQuery " + keywordsQuery);
     
-    var url = "http://newsapi.org/v2/everything?q=" + keywordsQuery +
               "&domains=" + domains +
+    var url = "http://newsapi.org/v2/everything?qInTitle=" + keywordsQuery +
               "&from=" + from +
               "&language=" + language +
               "&sortBy=" + sortBy +
