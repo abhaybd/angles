@@ -4,10 +4,19 @@ function relevantNews(keywords, publisher, callback) {
     });
 }
 
-function collapseFloater(floater) {
+function setFloaterClickEnabled(floater, publisher, enabled) {
+    if (enabled === true) {
+        floater.on("click", () => expandFloater(floater, publisher));
+    } else {
+        floater.off("click");
+    }
+}
+
+function collapseFloater(floater, publisher) {
     floater.empty();
     floater.removeClass("expanded").addClass("collapsed");
     floater.append("<div>Angles</div>");
+    setTimeout(() => setFloaterClickEnabled(floater, publisher, true), 1000);
 }
 
 function expandFloater(floater, publisher) {
@@ -15,8 +24,8 @@ function expandFloater(floater, publisher) {
     floater.empty();
     const imgUrl = chrome.extension.getURL("images/collapse.png");
     const backButton = $(`<img id='collapse-button' src='${imgUrl}' alt="collapse"/>`);
-    backButton.on("click", () => collapseFloater(floater));
-    floater.off("click");
+    backButton.on("click", () => collapseFloater(floater, publisher));
+    setFloaterClickEnabled(floater, publisher, false);
     floater.prepend(backButton);
     chrome.runtime.sendMessage({reqType: "loadFloaterHtml"}, function(response) {
         let html = response.replaceAll(/[\s\S]+<body>/gi, "").replaceAll(/<\/body>[\s\S]+/gi, "");
@@ -28,9 +37,7 @@ function expandFloater(floater, publisher) {
 
 function enableFloater(publisher) {
     const floater = $("<div id='angles-floater' class='collapsed'><div>Angles</div></div>");
-    floater.on("click", function() {
-        expandFloater(floater, publisher);
-    });
+    setFloaterClickEnabled(floater, publisher, true);
     $("body").append(floater);
     console.log(floater);
 }

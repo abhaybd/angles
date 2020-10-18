@@ -92,3 +92,5 @@ getPublisher("http://www.aarp.org/hahahahaha").then(function(publisher) {
         });
     });
 });
+
+getPublisher("http://www.nytimes.com/").then(p => console.log("publisher: " + p));

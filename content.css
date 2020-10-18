@@ -9,6 +9,7 @@
 }
 
 #collapse-button {
+  all: initial;
   position: absolute;
   transform: translate(-20px, 0);
 }

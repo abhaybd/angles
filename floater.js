@@ -23,7 +23,7 @@ function populateFloater(floater, publisher) {
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
-                const imageDiv = $("<div class='image'></div>");
+                const imageDiv = $("<div class='article-image'></div>");
                 $.get("https://cors-anywhere.herokuapp.com/" + articleObj.url, function(data) {
                     imageDiv.append($(data).find("img").first());
                 });
