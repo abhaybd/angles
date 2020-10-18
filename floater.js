@@ -40,7 +40,7 @@ function populateFloater(floater, publisher) {
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
                 article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
-                article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
+                // article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
                 articlesRoot.append(article);
             }
         });

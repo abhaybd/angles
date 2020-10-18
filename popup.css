@@ -13,7 +13,7 @@
 .slider{
   -webkit-appearance: none; /* Override default CSS styles */
   appearance: none;
-  width: 100px; /* Full-width */
+  width: 100%; /* Full-width */
   height: 15px; /* Specified height */
   background: linear-gradient(
     90deg,
@@ -45,11 +45,6 @@
 
 body {
   margin: 0px;
-}
-.article-image * {
-  all: initial;
-  max-width: 80px;
-  max-height: 40px;
 }
 
 #angles-floater-content {
