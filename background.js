@@ -80,7 +80,7 @@ async function getRelevantNews(keywords, publisher) {
     // domains must be comma-separated list of domain names
     var domains = publishers[0].url;
     for (let i = 1; i < publishers.length; i++) {
-        domains += "," + publishers[i].url;
+        domains += "," + publishers[i].url.split('/')[0];
     }
     console.log("publishers " + publishers);
     
@@ -92,11 +92,10 @@ async function getRelevantNews(keywords, publisher) {
     console.log("domains " + domains);
     
     var response = await queryNews(keywords, domains);
-    
-    var numArticles = response.totalResults;
+
     var articles = response.articles;
     
-    for (let i = 0; i < numArticles; i++) {
+    for (let i = 0; i < articles.length; i++) {
         var currentPublisher = articles[i].source.name;
         
         //find bias of currentPublisher and set that as current article's bias
