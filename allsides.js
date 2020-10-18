@@ -56,13 +56,16 @@ function splitUrl(URL) {
 
 // Returns if 2 publishers are the same
 function samePublisher(p1, p2) {
+    if (p1.replaceAll(/\s/g, "") === p2.replaceAll(/\s/g, "")) return true;
+
     // console.log(p1, p2);
     let smaller = new Set(p1.split(/[^a-zA-Z0-9]/));
     let larger = new Set(p2.split(/[^a-zA-Z0-9]/));
     // console.log(smaller, larger);
-    if (p1.size > p2.size) {
-        smaller = p2;
-        larger = p1;
+    if (smaller.size > larger.size) {
+        let temp = smaller;
+        smaller = larger;
+        larger = temp;
     }
     for (let s of smaller) {
         if (s.length < 0) {
