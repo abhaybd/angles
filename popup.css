@@ -77,31 +77,12 @@ body {
 }
 .slidercontainer{
   all: initial;
-  position: absolute;
   display: inline-block;
   top: 15px;
   right: 30px;
   width: 100px;
   height: 15px;
   margin:10px;
-  box-sizing: border-box;
-}
-.bias-bar {
-  all: initial;
-  position: absolute;
-  display: inline-block;
-  top: 15px;
-  right: 30px;
-  width: 100px;
-  height: 15px;
-  background: linear-gradient(
-    90deg,
-    rgba(20, 0, 255, 0.85) 23.18%,
-    rgba(255, 0, 0, 0.85) 72.27%
-  );
-  /* box-sizing: border-box; */
-  border-radius: 15px;
-  margin: 10px;
   box-sizing: border-box;
 }
 
