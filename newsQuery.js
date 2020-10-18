@@ -80,7 +80,7 @@ function getTwoWeeksAgo() {
     var day = today.getDate();
     
     if (day <= 14) {
-        day = mod(day - 14, 31);
+        day = 1 + mod(day - 15, 30);
         if (month == 1) {
             month = 12;
             year--;
@@ -101,7 +101,9 @@ function getTwoWeeksAgo() {
         dzeros = "0";
     }
     
-    return year + "-" + mzeros + month + "-" + dzeros + day;
+    var timestamp = year + "-" + mzeros + month + "-" + dzeros + day;
+    console.log('timestamp ' + timestamp);
+    return timestamp;
 }
 
 function mod(num, x) {
