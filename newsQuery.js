@@ -5,7 +5,7 @@ const apiKey = "edb5995c5150404fbc55e6530b36cddc";
 async function queryNews(keywords, domains) {
     const sortBy = "relevancy"; // other possible values: "popularity", "publishedAt"
     const language = "en"; // searching for only English articles
-    const from = "2020-09-016"; // default start date of articles
+    const from = getMonthAgo(); // default start date of articles
     
     var response;
     
@@ -31,4 +31,31 @@ async function queryNews(keywords, domains) {
     var request = new Request(url);
     var response = await fetch(request);
     return response.json();
+}
+
+// Return timestamp of the day one month ago
+function getMonthAgo() {
+    var today = new Date();
+    var year = today.getFullYear();
+    var month = today.getMonth();
+    var day = today.getDay();
+    
+    if (month == 1) {
+        month = 12;
+        year--;
+    } else {
+        month--;
+    }
+    
+    var mzeros = "";
+    if (month < 10) {
+        mzeros = "0";
+    }
+    
+    var dzeros = "";
+    if (day < 10) {
+        dzeros = "0";
+    }
+    
+    return year + "-" + mzeros + month + "-" + dzeros + day;
 }
