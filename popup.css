@@ -1,65 +1,40 @@
 @font-face {
-    font-family:'Bitter', sans-serif;
-    src: url(https://fonts.googleapis.com/css?family=Bitter);
-  }
+  font-family: "Bitter", sans-serif;
+  src: url(https://fonts.googleapis.com/css?family=Bitter);
+}
 
 .article-image * {
-    all:initial;
+  all: initial;
 }
 
 #angles-floater-content {
-    all:initial;
-    border-radius:15px;
-    font-family: 'Bitter', sans-serif;
+  all: initial;
+  border-radius: 15px;
+  font-family: "Bitter", sans-serif;
 }
 
-.indicator-l{
-    all:initial;
-    position: absolute;
-    display:inline-block;
-    font-size: small;
-    top:25px;
-    left:150px;
-    font-family: 'Bitter', sans-serif;
+.indicator-l {
+  all: initial;
+  position: absolute;
+  display: inline-block;
+  font-size: small;
+  top: 25px;
+  left: 150px;
+  font-family: "Bitter", sans-serif;
 }
 
 .indicator-r {
-  all:initial;
+  all: initial;
   position: absolute;
   display: inline-block;
   font-size: small;
   top: 25px;
   right: 25px;
-  font-family: 'Bitter', sans-serif;
-}
-
-.popup-top {
-  all:initial;  
-  display: inline-block;
-  white-space: nowrap;
-  width: 300px;
-  height: 50px;
-  background: #c4c4c4;
-  /* border: 1px solid #000000; */
-  box-sizing: border-box;
-  border-radius: 15px 15px 0px 0px;
-}
-
-.article-image{
-  all: initial;
-}
-
-.popup-source {
-  all:initial;
-  display: inline-block;
-  font-weight: bold;
-  font-size: 2em;
-  padding: 10px;
-  font-family: 'Bitter', sans-serif;
+  font-family: "Bitter", sans-serif;
 }
 
 .bias-bar {
-  all:initial;
+  all: initial;
   position: absolute;
   display: inline-block;
   top: 15px;
@@ -71,16 +46,40 @@
     rgba(20, 0, 255, 0.85) 23.18%,
     rgba(255, 0, 0, 0.85) 72.27%
   );
-  /* border: 1px solid #231414; */
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   border-radius: 15px;
   margin: 10px;
 }
 
+.popup-top {
+  all: initial;
+  display: inline-block;
+  white-space: nowrap;
+  width: 300px;
+  height: 50px;
+  background: #c4c4c4;
+  /* border: 1px solid #000000; */
+  box-sizing: border-box;
+  border-radius: 15px 15px 0px 0px;
+}
+
+.article-image {
+  all: initial;
+}
+
+.popup-source {
+  all: initial;
+  display: inline-block;
+  font-weight: bold;
+  font-size: 2em;
+  padding: 10px;
+  font-family: "Bitter", sans-serif;
+}
+
 .popup-mid {
-  all:initial;
+  all: initial;
   display: flex;
-  overflow-wrap:break-word;
+  overflow-wrap: break-word;
   width: 300px;
   height: 100px;
   background: #ffffff;
@@ -89,16 +88,18 @@
 }
 
 .section-title {
-  all:initial;
+  all: initial;
   display: inline-block;
+  /* white-space: nowrap; */
   overflow-wrap: break-word;
   font-weight: bold;
   font-size: 1em;
   padding: 10px;
+  font-family: "Bitter", sans-serif;
 }
 
 .popup-bottom {
-  all:initial;
+  all: initial;
   overflow-wrap: break-word;
   display: flex;
   width: 300px;
@@ -109,11 +110,15 @@
   border-radius: 0px 0px 15px 15px;
   overflow: auto;
 }
-/* 
-.current-article{
 
+.current-article{
+  all: initial;
+  display: inline-block;
+  overflow-wrap: break-word;
 }
 
 .contrasting-article{
-
-}  */
+  all: initial;
+  display: inline-block;
+  overflow-wrap: break-word;
+}
