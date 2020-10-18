@@ -9,7 +9,7 @@ async function queryNews(keywords, domains) {
     
     var keywordsQuery = "q=" + keywords[0];
     for (let i = 1; i < keywords.length; i++) {
-        keywordsQuery += "OR" + keywords[i];
+        keywordsQuery += " AND " + keywords[i];
     }
     
     console.log("apiKey " + apiKey);
