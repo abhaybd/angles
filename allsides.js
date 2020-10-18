@@ -35,11 +35,12 @@ async function getPublisher(URL) {
     while(!allsidesData2 || !allsidesData)
         await new Promise(resolve => setTimeout(resolve, 250));
     
-    let filter1 = allsidesData2.filter(news => news["url"].length > 0 && URL.includes(news["url"].split("//")[1]));
+    let filter1 = allsidesData2.filter(news => news["url"].length > 0 && URL.includes(splitUrl(news["url"])));
     // check if allsidesdata contains object with same news_source
     let filter2 = [];
     if (filter1.length > 0) {
-        filter2 = allsidesData.filter(news => news["news_source"] == filter1[0]["news_source"]);
+        // console.log(filter1);
+        filter2 = allsidesData.filter(news => samePublisher(news["news_source"], filter1[0]["news_source"]));
     }
     // console.log("finished", filter2[0]["news_source"]);
     if (filter2.length == 0) {
@@ -48,18 +49,26 @@ async function getPublisher(URL) {
     return filter2[0]["news_source"];
 }
 
+function splitUrl(URL) {
+    let splitURL = URL.split(/(\/\/)(www.)*/);
+    return splitURL[splitURL.length - 1];
+}
+
 function samePublisher(p1, p2) {
-    console.log(p1, p2);
-    p1 = new Set(p1.split("\\P{Alpha}+"));
-    p2 = new Set(p2.split("\\P{Alpha}+"));
-    console.log(p1, p2);
-    let smaller = p1;
-    let larger = p2;
+    // console.log(p1, p2);
+    let smaller = new Set(p1.split(/[^a-zA-Z0-9]/));
+    let larger = new Set(p2.split(/[^a-zA-Z0-9]/));
+    // console.log(smaller, larger);
     if (p1.size > p2.size) {
         smaller = p2;
         larger = p1;
     }
-    for (var s of smaller) if (!larger.has(s)) return false;
+    for (var s of smaller) {
+        if (s.length < 0) {
+            continue;
+        }
+        if (!larger.has(s)) return false;
+    }
     return true;
 }
 
@@ -77,13 +86,17 @@ async function getBias(name) {
 async function oppositeBias(bias) {
     while(!allsidesData)
         await new Promise(resolve => setTimeout(resolve, 250));
-    let filter = allsidesData.filter(news => (bias < 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 4))
+    let filter = allsidesData.filter(news => inAllsidesData2(news["news_source"]) && ((bias < 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 4))
     || (bias > 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 2))
-    || (bias == 3 && (parseInt(news["rating_num"]) >= 2 && parseInt(news["rating_num"]) <= 4))
+    || (bias == 3 && (parseInt(news["rating_num"]) >= 2 && parseInt(news["rating_num"]) <= 4)))
     );
     let sampleSize = Math.min(5, filter.length);
     // console.log(getRandom(filter, sampleSize));
     return getRandom(filter, sampleSize);
+}
+
+function inAllsidesData2(publisher) {
+    return allsidesData2.filter(news => news["url"].length > 0 && news["news_source"] == publisher).length > 0;
 }
 
 // Returns random subarray of length n
@@ -98,10 +111,21 @@ function getRandom(arr, n) {
         result[n] = arr[x in taken ? taken[x] : x];
         taken[x] = --len in taken ? taken[len] : len;
     }
-    return result;
+    var output = [];
+    for (var r of result) {
+        let news = {
+            publisher: r["news_source"],
+            bias: r["rating_num"],
+        };
+        // Get url
+        let filter = allsidesData2.filter(news => news["news_source"] == r["news_source"]);
+        news.url = filter[0]["url"];
+        output.push(news);
+    }
+    return output;
 }
 
-getPublisher("https://www.cnn.com/hahahahaha").then(function(publisher) {
+getPublisher("https://www.cnn.com/2020/10/18/world/mink-fur-farms-coronavirus-scli-intl/index.html").then(function(publisher) {
     console.log("getPublisher ", publisher);
     getBias(publisher).then(function(bias) {
         console.log("getBias ", bias);
@@ -110,6 +134,3 @@ getPublisher("https://www.cnn.com/hahahahaha").then(function(publisher) {
         });
     });
 });
-
-// console.log("Here is an ex@mple".split('/[^a-zA-Z]/'));
-// console.log(samePublisher("New York Times - News", "New York Times (Online News)"));
