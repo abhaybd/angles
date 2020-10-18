@@ -48,6 +48,14 @@ function getMonthAgo() {
         month--;
     }
     
+    if (day == 31) {
+        if (month==2) {
+            day = 28;
+        } else if ((month <= 7 && month%2 == 0) || (month>=8 && month%2==1)) {
+            day = 30;
+        }
+    }  
+    
     var mzeros = "";
     if (month < 10) {
         mzeros = "0";
