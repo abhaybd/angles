@@ -7,7 +7,7 @@ $.get("https://github.com/favstats/AllSideR/raw/master/data/allsides_data.csv", 
 var allsidesData2;
 $.get("https://www.allsides.com/download/allsides_data.json", function(data) {
     allsidesData2 = data.filter(news => news["url"].length > 0);
-    console.log(allsidesData2);
+    // console.log(allsidesData2);
 });
 
 function processData(allText) {
@@ -59,9 +59,10 @@ function samePublisher(p1, p2) {
     let smaller = new Set(p1.split(/[^a-zA-Z0-9]/));
     let larger = new Set(p2.split(/[^a-zA-Z0-9]/));
     // console.log(smaller, larger);
-    if (p1.size > p2.size) {
-        smaller = p2;
-        larger = p1;
+    if (smaller.size > larger.size) {
+        temp = smaller;
+        smaller = larger;
+        larger = temp;
     }
     for (var s of smaller) {
         if (s.length < 0) {
@@ -125,7 +126,7 @@ function getRandom(arr, n) {
     return output;
 }
 
-getPublisher("https://www.cnn.com/2020/10/18/world/mink-fur-farms-coronavirus-scli-intl/index.html").then(function(publisher) {
+getPublisher("https://www.npr.org/2020/10/17/924934728/new-zealand-pm-ardern-wins-re-election-in-best-showing-for-labour-party-in-decad").then(function(publisher) {
     console.log("getPublisher ", publisher);
     getBias(publisher).then(function(bias) {
         console.log("getBias ", bias);
