@@ -72,7 +72,7 @@
 .popup-mid {
   all:initial;
   display: flex;
-  white-space: nowrap;
+  overflow-wrap:break-word;
   width: 300px;
   height: 100px;
   background: #ffffff;
@@ -83,6 +83,7 @@
 .section-title {
   all:initial;
   display: inline-block;
+  overflow-wrap:break-word;
   font-weight: bold;
   font-size: 1em;
   padding: 10px;
@@ -92,7 +93,7 @@
 .popup-bottom {
   all:initial;
   display: flex;
-  white-space: nowrap;
+  overflow-wrap:break-word;
   width: 300px;
   height: 300px;
   background: #c4c4c4;
