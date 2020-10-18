@@ -1,4 +1,5 @@
 #angles-floater-content{
+  position: relative;
   width: 300px;
   height: 350px;
   background: #C4C4C4;
@@ -8,8 +9,8 @@
 }
 
 #collapse-button {
-  position: relative;
-  transform: translate(-40px, 0);
+  position: absolute;
+  transform: translate(-20px, 0);
 }
 
 #angles-floater.collapsed {

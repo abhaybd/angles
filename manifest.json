@@ -29,6 +29,8 @@
     "32": "images/ANGLES32.png",
     "48": "images/ANGLES48.png",
     "128": "images/ANGLES128.png"
-  }
-  
+  },
+  "web_accessible_resources": [
+    "images/collapse.png"
+  ]
 }

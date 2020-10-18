@@ -13,7 +13,8 @@ function collapseFloater(floater) {
 function expandFloater(floater, publisher) {
     floater.removeClass("collapsed").addClass("expanded");
     floater.empty();
-    const backButton = $("<div id='collapse-button'>></div>");
+    const imgUrl = chrome.extension.getURL("images/collapse.png");
+    const backButton = $(`<img id='collapse-button' src='${imgUrl}' alt="collapse"/>`);
     backButton.on("click", () => collapseFloater(floater));
     floater.off("click");
     floater.prepend(backButton);
