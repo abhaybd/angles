@@ -3,16 +3,19 @@ function getKeywords() {
     text = text.replaceAll(/[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&\/=]*)?/gi, "");
     text = text.replaceAll(/[\[\]+\-@#^*_=]/gi, "");
     text = text.replaceAll(/([!.;:,?)])(\w)/gi, "$1 $2");
-    // pass text to nlp for keyword extraction
-    return new Promise(resolve => resolve([]));
-    /* TODO: uncomment this when the nlp api works
-    const nlp_url = "blah";
+    const nlpUrl = "https://us-west3-angles-dh2020.cloudfunctions.net/getRelevantEntities";
     return new Promise((resolve => {
-        $.post(nlp_url, text, function (data) {
-            resolve(JSON.parse(data).slice(0,5));
+        $.ajax({
+            type: "POST",
+            url: nlpUrl,
+            data: JSON.stringify({message: text}),
+            contentType: "application/json",
+            dataType: "json",
+            success: function(data) {
+                resolve(data.keywords.slice(0, 5));
+            }
         });
     }));
-     */
 }
 
 function populateFloater(floater, publisher) {
@@ -35,4 +38,3 @@ function populateFloater(floater, publisher) {
         });
     })
 }
-
