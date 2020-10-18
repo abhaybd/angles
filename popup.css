@@ -2,19 +2,21 @@
   font-family: "Bitter", sans-serif;
   src: url(https://fonts.googleapis.com/css?family=Bitter);
 }
+
 @font-face {
   font-family: "Lato", sans-serif;
   src: url(https://fonts.googleapis.com/css?family=Lato);
 }
+
 .slidecontainer {
   width: 100%;
 }
 
-.slider{
-  -webkit-appearance: none; 
+.slider {
+  -webkit-appearance: none;
   appearance: none;
   width: 100px;
-  height: 15px; 
+  height: 15px;
   background: linear-gradient(
     90deg,
     rgba(20, 0, 255, 0.85) 23.18%,
@@ -23,19 +25,21 @@
   outline: none; /* Remove outline */
   border: 1px solid #000000;
   border-radius: 15px;
-} 
-.slider::-webkit-slider-thumb{
+}
+
+.slider::-webkit-slider-thumb {
   appearance: none;
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-  background: #f9aa33;; /* Green background */
+  background: #f9aa33; /* Green background */
   border-radius: 15px;
   border: 1px solid #000000;
 }
-.slider::-moz-range-thumb{
+
+.slider::-moz-range-thumb {
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-  background: #f9aa33;; /* Green background */
+  background: #f9aa33; /* Green background */
   border-radius: 15px;
   border: 1px solid #000000;
 }
@@ -73,18 +77,13 @@ body {
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
-.slidercontainer{
+.slidercontainer {
   all: initial;
   display: inline-block;
   top: 15px;
   right: 30px;
   width: 100px;
   height: 15px;
-  margin: 5px;
-  box-sizing: border-box;
-}
-
-.popup-top {
   all: initial;
   display: inline-block;
   white-space: nowrap;
@@ -110,9 +109,9 @@ body {
   display: flex;
   overflow-wrap: break-word;
   width: 300px;
-  height: 100px;
-  background: #ffffff;
-  border: 1px solid #000000;
+  height: 80px;
+  background: #f1f1f1;
+  border: 1px solid #c4c4c4;
   box-sizing: border-box;
 }
 
@@ -138,6 +137,15 @@ body {
   box-sizing: border-box;
   border-radius: 0px 0px 15px 15px;
   overflow: auto;
+}
+
+.article{
+  border: 1px solid #000000;
+  border-radius:15px;
+  padding:5px;
+  margin:5px;
+  background: #FFFFFF;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .current-article {
