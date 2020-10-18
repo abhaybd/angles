@@ -50,7 +50,7 @@ function populateFloater(floater, publisher) {
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
-                article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
+                article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</br></a>`);
                 console.log("bias: " + articleObj.bias);
                 const slider = $(`<div class = 'slidercontainer'><input type='range' min='1' max='100' value='${valueMapper(parseInt(articleObj.bias))}' class='slider' disabled></div>`);
                 article.append(slider);
