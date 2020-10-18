@@ -1,5 +1,5 @@
 function relevantNews(keywords, publisher, callback) {
-    chrome.runtime.sendMessage({reqType: "news", keywords: keywords}, function(response) {
+    chrome.runtime.sendMessage({reqType: "news", keywords: keywords, publisher: publisher}, function(response) {
         callback(response.articles);
     });
 }

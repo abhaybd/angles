@@ -7,8 +7,6 @@ async function queryNews(keywords, domains) {
     const language = "en"; // searching for only English articles
     const from = "2020-09-016"; // default start date of articles
     
-    var response;
-    
     var keywordsQuery = "q=" + keywords[0];
     for (let i = 1; i < keywords.length; i++) {
         keywordsQuery += "OR" + keywords[i];

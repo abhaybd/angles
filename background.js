@@ -6,7 +6,7 @@ chrome.runtime.onInstalled.addListener(async function() {
     console.log("queryResults " + queryResults);
 });
 
-function getRelevantNews(keywords, publisher) {
+function getRelevantNdsgews(keywords, publisher) {
     // const bias = getBias(publisher);
     // const publishers = oppositeBias(bias);
     return new Promise(resolve => resolve(JSON.parse("{\n" +
@@ -73,20 +73,20 @@ chrome.runtime.onMessage.addListener(
 
 
 // TODO: remove garbage to replace above func
-async function getRelevadsgntNews(keywords, publisher) {
-    const bias = getBias(publisher);
-    const publishers = oppositeBias(bias);
+async function getRelevantNews(keywords, publisher) {
+    const bias = await getBias(publisher);
+    const publishers = await oppositeBias(bias);
     
     // domains must be comma-separated list of domain names
-    var domains = publishers[0][1];
+    var domains = publishers[0].url;
     for (let i = 1; i < publishers.length; i++) {
-        domains += "," + publishers[i][1];
+        domains += "," + publishers[i].url;
     }
     console.log("publishers " + publishers);
     
     var oppositeBiases = [];
     for (let i = 0; i < publishers.length; i++) {
-        oppositeBiases.push(publishers[i][2]);
+        oppositeBiases.push(publishers[i].bias);
     }
     
     console.log("domains " + domains);
@@ -101,12 +101,12 @@ async function getRelevadsgntNews(keywords, publisher) {
         
         //find bias of currentPublisher and set that as current article's bias
         for (let j = 0; j < publishers.length; j++) {
-            if (publishers[j][0] === currentPublisher) {
+            if (publishers[j].publisher === currentPublisher) {
                 articles[i]["bias"] = oppositeBiases[j];
                 break;
             }
         }
     }
-    
+    console.log(articles);
     return articles;
 }
