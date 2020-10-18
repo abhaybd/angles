@@ -54,6 +54,7 @@ function splitUrl(URL) {
     return splitURL[splitURL.length - 1];
 }
 
+// Returns if 2 publishers are the same
 function samePublisher(p1, p2) {
     // console.log(p1, p2);
     let smaller = new Set(p1.split(/[^a-zA-Z0-9]/));

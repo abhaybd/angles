@@ -33,6 +33,7 @@ async function queryNews(keywords, domains) {
     return response.json();
 }
 
+// Returns a timestamp in format yyyy-mm-dd of the day exactly one month ago
 function getMonthAgo() {
     var today = new Date();
     var year = today.getFullYear();
