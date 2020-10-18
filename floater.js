@@ -31,7 +31,7 @@ function populateFloater(floater, publisher) {
                     imageDiv.append($(data).find("img").first());
                 });
                 article.append(imageDiv);
-                article.append(`<div class='article-header'>${articleObj.title}</div>`);
+                article.append(`<a class='article-header' href='${articleObj.url}'>${articleObj.title}</a>`);
                 article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
                 articlesRoot.append(article);
             }
