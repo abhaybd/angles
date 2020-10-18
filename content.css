@@ -1,17 +1,16 @@
 @font-face {
-  font-family:'Bitter', sans-serif;
+  font-family: "Bitter", sans-serif;
   src: url(https://fonts.googleapis.com/css?family=Bitter);
 }
-
-#angles-floater-content{
+#angles-floater-content {
   position: relative;
   width: 300px;
   height: 350px;
-  background: #C4C4C4;
+  background: #c4c4c4;
   border: 1px solid #000000;
   box-sizing: border-box;
   border-radius: 15px;
-  z-index: -1;
+  z-index: 999;
 }
 
 #collapse-button {
@@ -25,31 +24,34 @@
   width: 50px;
   height: 200px;
   color: black;
-  background-color: #F9AA33;
+  background-color: #f9aa33;
+  cursor: pointer;
 }
 
 #angles-floater.collapsed:hover {
-  background-color:#c28529;
+  background-color: #c28529;
 }
 
 #angles-floater.collapsed > * {
   transform: rotate(-90deg);
   text-align: center;
   margin-top: 95px;
-  font-family:'Bitter', sans-serif;
+  font-family: "Bitter", sans-serif;
   font-size: 2em;
 }
 
 #angles-floater {
   position: fixed;
-  top: 100px;
+  top: 110px;
   right: 0;
 }
 
 #floater-name {
   margin-top: 80px;
 }
-
-#collapse-button:hover{
-  background-color:red;
+#collapse-button {
+}
+#collapse-button:hover {
+  background-color: red;
+  cursor: pointer;
 }
