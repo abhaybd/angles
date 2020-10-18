@@ -68,10 +68,9 @@ async function getEntities(articleText) {
 
   // Get keywords from the entities
   let keywords = [];
-  let i = 0;
   entities.forEach(entity => {
-    keywords.push(entity.name);
-    i++;
+    let name = entity.name.toLowerCase();
+    if (!keywords.includes(name)) keywords.push(name);
   });
   return JSON.stringify({"keywords": keywords});
 }
