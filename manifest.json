@@ -1,7 +1,7 @@
 {
   "name": "Angles",
   "version": "1.0",
-  "description": "Check your bias!",
+  "description": "As you scroll through your favorite news sites, this browser extension presents related articles from other news sources with contrasting perspectives.",
   "manifest_version": 2,
   "permissions": [],
   "background": {
