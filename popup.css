@@ -55,24 +55,25 @@ body {
   margin: 0px;
 }
 
+.flex-container {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
 .indicator-l {
   all: initial;
-  position: absolute;
   display: inline-block;
   font-size: small;
-  top: 20px;
-  left: 145px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
 
 .indicator-r {
   all: initial;
-  position: absolute;
   display: inline-block;
   font-size: small;
-  top: 20px;
-  right: 20px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
@@ -83,7 +84,7 @@ body {
   right: 30px;
   width: 100px;
   height: 15px;
-  margin: 10px;
+  margin: 5px;
   box-sizing: border-box;
 }
 
@@ -99,7 +100,7 @@ body {
   border-radius: 15px 15px 0px 0px;
 }
 
-.popup-source {
+.popup-source span {
   all: initial;
   display: inline-block;
   font-weight: bold;
