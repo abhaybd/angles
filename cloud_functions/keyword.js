@@ -11,6 +11,7 @@ const language = require('@google-cloud/language');
  * @param {!express:Response} res HTTP response context.
  */
 exports.getRelevantEntities = (req, res) => {
+  // Choose the appropriate parsing method based on the type of data sent
   let text;
   switch (req.get('content-type')) {
     case 'application/json':
@@ -29,11 +30,24 @@ exports.getRelevantEntities = (req, res) => {
       text = req.body.message;
       break;
   }
-  getEntities(text).then(function(keywords) {
-    res.status(200).send(keywords);
-  }).catch(function(error) {
-    res.status(200).send('error: ' + error);
-  });
+
+  // Set CORS headers for preflight requests
+  // Allows GETs from any origin with the Content-Type header
+  // and caches preflight response for 3600s
+  res.set('Access-Control-Allow-Origin', '*');
+  if (req.method === 'OPTIONS') {
+    // Send response to OPTIONS requests
+    res.set('Access-Control-Allow-Methods', 'GET');
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+    res.set('Access-Control-Max-Age', '3600');
+    res.status(204).send('');
+  } else {
+    getEntities(text).then(function(keywords) {
+      res.status(200).send(keywords);
+    }).catch(function(error) {
+      res.status(200).send('error: ' + error);
+    });
+  }
 };
 
 async function getEntities(articleText) {  
