@@ -36,17 +36,39 @@ chrome.runtime.onMessage.addListener(
 );
 
 async function getRelevantNews(keywords, publisher) {
-    //console.log('getrelevantnews()');
     const bias = getBias(publisher);
     const publishers = oppositeBias(bias);
-    console.log("publishers " + publishers);
     
+    // domains must be comma-separated list of domain names
     var domains = publishers[0][1];
-    for (let i = 1; i < domains.length; i++) {
+    for (let i = 1; i < publishers.length; i++) {
         domains += "," + publishers[i][1];
     }
+    console.log("publishers " + publishers);
+    
+    var oppositeBiases = [];
+    for (let i = 0; i < publishers.length; i++) {
+        oppositeBiases[i].push(publishers[i][2]);
+    }
+    
     console.log("domains " + domains);
     
     var response = await queryNews(keywords, domains);
-    return response;
+    
+    var numArticles = response.totalResults;
+    var articles = response.articles;
+    
+    for (let i = 0; i < numArticles; i++) {
+        var currentPublisher = articles[i].source.name;
+        
+        //find bias of currentPublisher and set that as current article's bias
+        for (let j = 0; j < publishers.length; j++) {
+            if (publishers[j][0].equals(currentPublisher)) {
+                articles[i]["bias"] = oppositeBiases[j];
+                break;
+            }
+        }
+    }
+    
+    return articles;
 }
