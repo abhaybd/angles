@@ -71,3 +71,39 @@ function getMonthAgo() {
     
     return year + "-" + mzeros + month + "-" + dzeros + day;
 }
+
+// Return a timestamp in format yyyy-mm-dd of the day exactly two weeks ago
+function getTwoWeeksAgo() {
+    var today = new Date();
+    var year = today.getYear();
+    var month = today.getMonth() + 1;
+    var day = today.getDate();
+    
+    if (day <= 14) {
+        day = mod(day - 14, 31);
+        if (month == 1) {
+            month = 12;
+            year--;
+        } else {
+            month--;
+        }
+    } else {
+        day -= 14;
+    }
+    
+    var mzeros = "";
+    if (month < 10) {
+        mzeros = "0";
+    }
+    
+    var dzeros = "";
+    if (day < 10) {
+        dzeros = "0";
+    }
+    
+    return year + "-" + mzeros + month + "-" + dzeros + day;
+}
+
+function mod(num, x) {
+    return (num + x) % x;
+}
