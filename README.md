@@ -1,5 +1,5 @@
 # Angles
-![Angles Logo](./images/ANGLES){:height = "50%" width = "50%"}
+![Angles Logo](./images/ANGLES128.png)
 
 **Built for DUBHACKS 2020**
 
