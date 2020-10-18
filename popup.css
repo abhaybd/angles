@@ -48,8 +48,8 @@ body {
 }
 .article-image * {
   all: initial;
-  max-width: 80;
-  max-height: 40;
+  max-width: 80px;
+  max-height: 40px;
 }
 
 #angles-floater-content {

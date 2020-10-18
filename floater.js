@@ -34,7 +34,8 @@ function populateFloater(floater, publisher) {
     getKeywords().then(keywords => {
         relevantNews(keywords, publisher, response => {
             floater.find(".current-article").text(document.title);
-            const articles = response.slice(0, 5);
+            floater.find("#myRange").value = (response.currBias - 1) * 25;
+            const articles = response.articles.slice(0, 5);
             const articlesRoot = $(".contrasting-article").first();
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
@@ -46,9 +47,6 @@ function populateFloater(floater, publisher) {
     })
 }
 
-var slider = document.getElementById("myRange");
-
-function setSlider() {
-    document.getElementById("myRange").value = "75";
-  }
-setSlider();
+$(function() {
+    $("#myRange").disabled = true;
+});
