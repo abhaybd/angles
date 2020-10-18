@@ -17,10 +17,22 @@ function getKeywords() {
 
 function populateFloater(floater, publisher) {
     getKeywords().then(keywords => {
-        relevantNews(keywords, publisher, articles => {
+        relevantNews(keywords, publisher, response => {
             floater.find(".current_article").text(document.title);
-
-        }); // assume format {url: "", title: "", publisher: ""}
+            const articles = response.articles.slice(0, 5);
+            const articlesRoot = $(".contrasting-article").first();
+            for (let articleObj of articles) {
+                const article = $("<div class='article'></div>");
+                const imageDiv = $("<div class='image'></div>");
+                $.get(articleObj.url, function(data) {
+                    imageDiv.append($(data).find("img").first());
+                });
+                article.append(imageDiv);
+                article.append(`<div class='article-header'>${articleObj.title}</div>`);
+                article.append(`<div class='bias-bar'><div class=bias${articleObj.bias}></div></div>`);
+                articlesRoot.append(article);
+            }
+        });
     })
 }
 
