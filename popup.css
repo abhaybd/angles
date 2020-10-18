@@ -11,36 +11,33 @@
 }
 
 .slider{
-  -webkit-appearance: none; /* Override default CSS styles */
+  -webkit-appearance: none; 
   appearance: none;
-  width: 100px; /* Full-width */
-  height: 15px; /* Specified height */
+  width: 100px;
+  height: 15px; 
   background: linear-gradient(
     90deg,
     rgba(20, 0, 255, 0.85) 23.18%,
     rgba(255, 0, 0, 0.85) 72.27%
   ); /* Grey background */
   outline: none; /* Remove outline */
+  border: 1px solid #000000;
   border-radius: 15px;
-  border-bottom: #d3d3d3 1px solid;
 } 
 .slider::-webkit-slider-thumb{
-  /* -webkit-appearance: none; Override default look */
-  display:inline-block;
   appearance: none;
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-  background: #4caf50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #f9aa33;; /* Green background */
   border-radius: 15px;
+  border: 1px solid #000000;
 }
 .slider::-moz-range-thumb{
-  display:inline-block;
   width: 15px; /* Set a specific slider handle width */
   height: 15px; /* Slider handle height */
-  background: #4caf50; /* Green background */
-  cursor: pointer; /* Cursor on hover */
+  background: #f9aa33;; /* Green background */
   border-radius: 15px;
+  border: 1px solid #000000;
 }
 
 body {
@@ -59,7 +56,7 @@ body {
   position: absolute;
   display: inline-block;
   font-size: small;
-  top: 25px;
+  top: 20px;
   left: 145px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
@@ -70,8 +67,8 @@ body {
   position: absolute;
   display: inline-block;
   font-size: small;
-  top: 25px;
-  right: 25px;
+  top: 20px;
+  right: 20px;
   font-family: "Bitter", sans-serif;
   box-sizing: border-box;
 }
