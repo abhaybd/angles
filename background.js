@@ -7,7 +7,7 @@ chrome.runtime.onInstalled.addListener(async function() {
 });
 
 chrome.runtime.onMessage.addListener(
-    async function(request, sender, sendResponse) {
+    function(request, sender, sendResponse) {
         console.log("From tab: " + sender.tab.url);
         switch (request.reqType) {
             case "publisher":
@@ -15,9 +15,8 @@ chrome.runtime.onMessage.addListener(
                 break;
 
             case "news":
-                const news = await getRelevantNews(request.keywords, request.publisher);
-                sendResponse({articles: news});
-                break;
+                const news = getRelevantNews(request.keywords, request.publisher).then(articles => sendResponse({articles: articles}));
+                return true;
 
             case "loadFloaterHtml":
                 let url = chrome.extension.getURL("popup.html");
@@ -48,7 +47,7 @@ async function getRelevantNews(keywords, publisher) {
     
     var oppositeBiases = [];
     for (let i = 0; i < publishers.length; i++) {
-        oppositeBiases[i].push(publishers[i][2]);
+        oppositeBiases.push(publishers[i][2]);
     }
     
     console.log("domains " + domains);
