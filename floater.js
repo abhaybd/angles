@@ -24,7 +24,7 @@ function populateFloater(floater, publisher) {
             for (let articleObj of articles) {
                 const article = $("<div class='article'></div>");
                 const imageDiv = $("<div class='image'></div>");
-                $.get(articleObj.url, function(data) {
+                $.get("https://cors-anywhere.herokuapp.com/" + articleObj.url, function(data) {
                     imageDiv.append($(data).find("img").first());
                 });
                 article.append(imageDiv);
