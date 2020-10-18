@@ -1,13 +1,13 @@
 var allsidesData;
 $.get("https://github.com/favstats/AllSideR/raw/master/data/allsides_data.csv", function(data) {
     allsidesData = processData(data);
-    console.log(allsidesData);
+    // console.log(allsidesData);
 });
 
 var allsidesData2;
 $.get("https://www.allsides.com/download/allsides_data.json", function(data) {
     allsidesData2 = data;
-    console.log(allsidesData2);
+    // console.log(allsidesData2);
 });
 
 function processData(allText) {
@@ -17,10 +17,10 @@ function processData(allText) {
 
     for (var i=1; i<allTextLines.length; i++) {
         var data = allTextLines[i].split(',');
-        if (data.length == headers.length) {
-            var tarr = [];
+        if (data.length == headers.length && data[2] != "NA") { // Skip if rating = NA
+            var tarr = {};
             for (var j=0; j<headers.length; j++) {
-                tarr.push(headers[j]+":"+data[j]);
+                tarr[headers[j]] = data[j];
             }
             lines.push(tarr);
         }
@@ -30,17 +30,65 @@ function processData(allText) {
 }
 
 // Returns publisher name if in AllSides data, null otherwise
-function getPublisher(url) {
-    // if url contains any host url's from allsides, return publisher name
-    return "publisher";
+async function getPublisher(URL) {
+    // if URL contains any host url's from allsides, return publisher name
+    while(!allsidesData2 || !allsidesData)
+        await new Promise(resolve => setTimeout(resolve, 250));
+    
+    let filter1 = allsidesData2.filter(news => news["url"].length > 0 && URL.includes(news["url"]));
+    // check if allsidesdata contains object with same news_source
+    let filter2 = allsidesData.filter(news => news["news_source"] == filter1[0]["news_source"]);
+    // console.log("finished", filter2[0]["news_source"]);
+    if (filter2.length == 0) {
+        return null;
+    }
+    return filter2[0]["news_source"];
 }
 
 // Returns bias of news 1-5
-function getBias(url) {
-    return 1;
+async function getBias(name) {
+    while(!allsidesData)
+        await new Promise(resolve => setTimeout(resolve, 250));
+
+    let filter = allsidesData.filter(news => news["news_source"] == name);
+    // console.log("bias ", filter[0]["rating_num"]);
+    return parseInt(filter[0]["rating_num"]);
 }
 
 // Returns list of news sources with opposite bias, each with publisher name, url, bias
-function oppositeBias(bias) {
-    return [["publisher", "url", 1 /*bias*/]];
+async function oppositeBias(bias) {
+    while(!allsidesData)
+        await new Promise(resolve => setTimeout(resolve, 250));
+    let filter = allsidesData.filter(news => (bias < 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 4))
+    || (bias > 3 && (parseInt(news["rating_num"]) == 3 || parseInt(news["rating_num"]) == 2))
+    || (bias == 3 && (parseInt(news["rating_num"]) >= 2 && parseInt(news["rating_num"]) <= 4))
+    );
+    let sampleSize = Math.min(5, filter.length);
+    // console.log(getRandom(filter, sampleSize));
+    return getRandom(filter, sampleSize);
 }
+
+// Returns random subarray of length n
+function getRandom(arr, n) {
+    var result = new Array(n),
+        len = arr.length,
+        taken = new Array(len);
+    if (n > len)
+        throw new RangeError("getRandom: more elements taken than available");
+    while (n--) {
+        var x = Math.floor(Math.random() * len);
+        result[n] = arr[x in taken ? taken[x] : x];
+        taken[x] = --len in taken ? taken[len] : len;
+    }
+    return result;
+}
+
+getPublisher("http://www.aarp.org/hahahahaha").then(function(publisher) {
+    console.log("getPublisher ", publisher);
+    getBias(publisher).then(function(bias) {
+        console.log("getBias ", bias);
+        oppositeBias(bias).then(function(arr){
+            console.log("oppositeBias ", arr);
+        });
+    });
+});
