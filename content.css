@@ -52,6 +52,5 @@
 #collapse-button {
 }
 #collapse-button:hover {
-  background-color: red;
   cursor: pointer;
 }

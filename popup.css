@@ -25,7 +25,7 @@
   outline: none; /* Remove outline */
   border: 1px solid #000000;
   border-radius: 15px;
-  float:right;
+  float:left;
 }
 
 .slider::-webkit-slider-thumb {
@@ -146,6 +146,7 @@ body {
   box-sizing: border-box;
   border-radius: 0px 0px 15px 15px;
   overflow: auto;
+  box-shadow: 5px 5px 5px grey;
 }
 
 .article{
