@@ -1,19 +1,13 @@
-#popupwindow {
-  border-radius: 15px;
+#angles-floater-content {
+    border-radius:15px;
 }
 
-button {
-  height: 30px;
-  width: 30px;
-  outline: none;
-}
-
-.indicator-l {
-  position: absolute;
-  display: inline-block;
-  font-size: small;
-  top: 25px;
-  left: 165px;
+.indicator-l{
+    position: absolute;
+    display:inline-block;
+    font-size: small;
+    top:25px;
+    left:165px;
 }
 
 .indicator-r {

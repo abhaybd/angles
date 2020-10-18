@@ -1,22 +1,10 @@
 chrome.runtime.onInstalled.addListener(function() {
-const url = "http://newsapi.org/v2/everything?bitcoin&domains=cnn.com&sortBy=relevancy&apiKey=4f010001c9f14c2eb9288c298c164b07";
-$.get(url, function(data){
-    console.log("jquery");
-    console.log(data);
+    console.log('check');
+    var keywords = ["president", "election"];
+    var domains = "cnn.com,foxnews.com";
+    var queryResults = queryNews(keywords, domains);
+    console.log("queryResults " + queryResults);
 });
-
-
-    chrome.declarativeContent.onPageChanged.removeRules(undefined, function() {
-        chrome.declarativeContent.onPageChanged.addRules([{
-          conditions: [new chrome.declarativeContent.PageStateMatcher({
-            pageUrl: {schemes:['https']},
-          })
-          ],
-              actions: [new chrome.declarativeContent.ShowPageAction()]
-        }]);
-      });
-});
-
 
 function getRelevantNews(keywords, publisher) {
     const bias = getBias(publisher);
@@ -29,7 +17,7 @@ chrome.runtime.onMessage.addListener(
     function(request, sender, sendResponse) {
         console.log("From tab: " + sender.tab.url);
         switch (request.reqType) {
-            case "isNews":
+            case "publisher":
                 sendResponse({publisher: getPublisher(request.url)});
                 break;
 
@@ -37,6 +25,19 @@ chrome.runtime.onMessage.addListener(
                 const news = getRelevantNews(request.keywords, request.publisher);
                 sendResponse({articles: news});
                 break;
+
+            case "loadFloaterHtml":
+                let url = chrome.extension.getURL("popup.html");
+                console.log("floater: " + url);
+                $.ajax({
+                    url: url,
+                    dataType: "html",
+                    success: function(data) {
+                        console.log("data " + data);
+                        sendResponse(data);
+                    }
+                });
+                return true; // signals to chrome to keep sendResponse alive
         }
     }
 );
