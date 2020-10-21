@@ -5,6 +5,8 @@
 
 ### A Chrome extension that allows you to scroll through your favorite news sites, while also presenting related articles from other news sources with contrasting perspectives. 
 
+[Link to Devpost submission](https://devpost.com/software/angles-sqdzlt)
+
 ## **Contributors**
 - [Abhinav Bandari](https://github.com/abx393)
 - [Abhay Deshpande](https://github.com/abhaybd)
